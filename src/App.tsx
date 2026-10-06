@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { MetricsBar } from './components/MetricsBar';
@@ -7,26 +6,15 @@ import { ResumeCV } from './components/ResumeCV';
 import { GithubMonitor } from './components/GithubMonitor';
 import { RecruitmentBanner } from './components/RecruitmentBanner';
 import { Contact } from './components/Contact';
-import { CyberIntroSplash } from './components/CyberIntroSplash';
 import { ParticleSpace } from './components/ParticleSpace';
 
 function App() {
-  const [showSplash, setShowSplash] = useState(true);
-
   return (
     <div className="relative min-h-screen bg-black text-slate-100 selection:bg-cyan-400 selection:text-slate-950 overflow-x-hidden">
-      {/* Background Animated Particle Space Canvas */}
+      {/* Retains subtle ambient cosmic particle background */}
       <ParticleSpace />
 
-      {/* Cyber Boot Intro Splash Sequence */}
-      {showSplash && (
-        <CyberIntroSplash 
-          name="POONDRU ATHARV REDDY" 
-          onComplete={() => setShowSplash(false)} 
-        />
-      )}
-
-      {/* Main Portfolio Content */}
+      {/* Main Portfolio Content Loads Instantly */}
       <div className="relative z-10 space-y-4">
         <Navbar />
         <main className="space-y-4">
