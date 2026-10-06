@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @keyframes laserExpand {
   0% {
     width: 0%;
@@ -25,6 +29,7 @@
 .aurora-heading {
   background: linear-gradient(135deg, #5eead4 0%, #38bdf8 50%, #fde68a 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: textGlowPulse 4s ease-in-out infinite;
 }

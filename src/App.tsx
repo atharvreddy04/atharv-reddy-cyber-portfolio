@@ -10,11 +10,8 @@ import { ParticleSpace } from './components/ParticleSpace';
 
 function App() {
   return (
-    <div className="relative min-h-screen bg-black text-slate-100 selection:bg-cyan-400 selection:text-slate-950 overflow-x-hidden">
-      {/* Retains subtle ambient cosmic particle background */}
+    <div className="relative min-h-screen bg-slate-950 text-slate-100 selection:bg-cyan-400 selection:text-slate-950 overflow-x-hidden">
       <ParticleSpace />
-
-      {/* Main Portfolio Content Loads Instantly */}
       <div className="relative z-10 space-y-4">
         <Navbar />
         <main className="space-y-4">
