@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
 export const ParticleSpace: React.FC = () => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -9,80 +9,82 @@ export const ParticleSpace: React.FC = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    let animId: number;
+    let animationFrameId: number;
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
     let mouseX = width / 2;
     let mouseY = height / 3;
 
-    const onResize = () => {
+    const handleResize = () => {
       if (!canvas) return;
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
     };
 
-    const onMouseMove = (e: MouseEvent) => {
+    const handleMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
     };
 
-    window.addEventListener('resize', onResize);
-    window.addEventListener('mousemove', onMouseMove, { passive: true });
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
-    // Subtle, sparse ambient nodes (Linear-style, not noisy)
-    const particleCount = Math.min(Math.floor(window.innerWidth / 30), 45);
+    const particleCount = Math.min(Math.floor(window.innerWidth / 25), 65);
     const particles = Array.from({ length: particleCount }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      size: Math.random() * 1.2 + 0.4,
-      speedX: (Math.random() - 0.5) * 0.2,
-      speedY: (Math.random() - 0.5) * 0.2,
-      opacity: Math.random() * 0.35 + 0.1,
+      radius: Math.random() * 1.4 + 0.6,
+      alpha: Math.random() * 0.6 + 0.2,
+      dx: (Math.random() - 0.5) * 0.25,
+      dy: (Math.random() - 0.5) * 0.25,
+      hue: Math.random() > 0.4 ? '170' : '190',
     }));
 
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Mouse-guided soft ambient glow
-      const radialGradient = ctx.createRadialGradient(
+      // Subtle mouse radial illumination
+      const radial = ctx.createRadialGradient(
         mouseX,
         mouseY,
         0,
         mouseX,
         mouseY,
-        420
+        380
       );
-      radialGradient.addColorStop(0, 'rgba(14, 165, 233, 0.05)');
-      radialGradient.addColorStop(1, 'rgba(14, 165, 233, 0)');
-      ctx.fillStyle = radialGradient;
+      radial.addColorStop(0, 'rgba(6, 182, 212, 0.04)');
+      radial.addColorStop(1, 'rgba(6, 182, 212, 0)');
+      ctx.fillStyle = radial;
       ctx.fillRect(0, 0, width, height);
 
-      // Render calm floating nodes
-      particles.forEach((p) => {
-        p.x += p.speedX;
-        p.y += p.speedY;
+      // Controlled glowing cyber dust
+      for (const p of particles) {
+        p.x += p.dx;
+        p.y += p.dy;
 
         if (p.x < 0) p.x = width;
         if (p.x > width) p.x = 0;
         if (p.y < 0) p.y = height;
         if (p.y > height) p.y = 0;
 
-        ctx.fillStyle = `rgba(56, 189, 248, ${p.opacity})`;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${p.hue}, 80%, 65%, ${p.alpha})`;
+        ctx.shadowBlur = 5;
+        ctx.shadowColor = `hsla(${p.hue}, 80%, 65%, 0.6)`;
         ctx.fill();
-      });
+      }
 
-      animId = requestAnimationFrame(render);
+      animationFrameId = requestAnimationFrame(render);
     };
 
     render();
 
     return () => {
-      window.removeEventListener('resize', onResize);
-      window.removeEventListener('mousemove', onMouseMove);
-      cancelAnimationFrame(animId);
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
@@ -90,7 +92,7 @@ export const ParticleSpace: React.FC = () => {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-0 h-full w-full"
+      className="pointer-events-none fixed inset-0 z-0 h-full w-full opacity-60"
     />
   );
 };
