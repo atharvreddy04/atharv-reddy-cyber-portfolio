@@ -1,21 +1,30 @@
-import React from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { MetricsBar } from './components/MetricsBar';
+import { AboutJson } from './components/AboutJson';
 import { ResumeCV } from './components/ResumeCV';
+import { GithubMonitor } from './components/GithubMonitor';
+import { RecruitmentBanner } from './components/RecruitmentBanner';
 import { Contact } from './components/Contact';
 
-export default function App() {
+function App() {
   return (
-    <div className="min-h-screen bg-[#0B0F17] text-slate-100">
+    <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-emerald-500 selection:text-slate-950">
       <Navbar />
-      <main>
+      <main className="space-y-4">
         <Hero />
+        <MetricsBar />
+        <AboutJson />
         <ResumeCV />
+        <GithubMonitor />
+        <RecruitmentBanner />
         <Contact />
       </main>
-      <footer className="py-8 border-t border-slate-800 text-center font-mono text-xs text-slate-500">
-        [SEC_PORTFOLIO] &copy; {new Date().getFullYear()} Atharv Reddy &middot; TLS 1.3 ENCRYPTED
+      <footer className="py-8 text-center text-xs font-mono text-slate-600 border-t border-slate-900">
+        &copy; {new Date().getFullYear()} Poondru Atharv Reddy. All systems secured.
       </footer>
     </div>
   );
 }
+
+export default App;
