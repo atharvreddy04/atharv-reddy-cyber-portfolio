@@ -55,7 +55,7 @@ CERTIFICATIONS:
             <ShieldCheck className="w-3.5 h-3.5" />
             Verified Security Credentials
           </div>
-          <h2 className="text-3xl font-bold text-white tracking-tight">Professional Resume</h2>
+          <h2 className="text-3xl font-bold tracking-tight aurora-heading">Professional Resume</h2>
           <p className="text-slate-400 font-mono text-xs">
             Interactive 3D spatial cards with official PDF downloads.
           </p>
@@ -89,9 +89,7 @@ CERTIFICATIONS:
         </div>
       </div>
 
-      {/* Grid Bento Blocks in 3D Highlight Format */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
-        
         {/* BLOCK 1: Summary */}
         <HighlightCard3D className="lg:col-span-8" glowColor="emerald">
           <div className="space-y-3">
@@ -186,7 +184,7 @@ CERTIFICATIONS:
           </div>
         </HighlightCard3D>
 
-        {/* BLOCK 5: Projects */}
+        {/* BLOCK 5: Key Projects */}
         <HighlightCard3D className="lg:col-span-6" glowColor="emerald">
           <div className="space-y-4">
             <div className="flex items-center gap-2 text-emerald-400 font-mono text-xs font-semibold">
@@ -248,7 +246,6 @@ CERTIFICATIONS:
             </div>
           </div>
         </HighlightCard3D>
-
       </div>
     </section>
   );

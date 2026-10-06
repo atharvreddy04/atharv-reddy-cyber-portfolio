@@ -6,13 +6,13 @@ export const AboutJson = () => {
   return (
     <section className="py-16 px-6 max-w-7xl mx-auto">
       <div className="text-xs font-mono text-emerald-400 mb-2">// ABOUT_ME</div>
-      <h2 className="text-3xl font-bold text-white mb-8 tracking-tight">Security Focus & Profile Telemetry</h2>
+      <h2 className="text-3xl font-bold mb-8 tracking-tight aurora-heading">Security Focus & Profile Telemetry</h2>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
         <HighlightCard3D className="lg:col-span-6" glowColor="emerald">
           <div className="space-y-4">
             <p className="text-slate-300 text-sm leading-relaxed">
-              I focus on Web Application Security, Vulnerability Assessment, and Penetration Testing (VAPT). My hands-on experience includes completing solved PortSwigger Web Security Academy labs, identifying OWASP Top 10 vulnerabilities, authoring reproducible Proof-of-Concepts (PoCs), and analyzing network traffic patterns.
+              I specialize in Web Application Security, Vulnerability Assessment, and Penetration Testing (VAPT). My practical experience involves auditing dynamic endpoints, discovering OWASP Top 10 vulnerabilities, authoring reproducible Proof-of-Concepts (PoCs), and analyzing network traffic patterns.
             </p>
             <div className="space-y-2 text-xs font-mono pt-4 border-t border-slate-800">
               <div className="flex items-center gap-2 text-slate-300">
