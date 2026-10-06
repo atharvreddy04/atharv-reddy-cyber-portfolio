@@ -1,69 +1,61 @@
 import React from 'react';
-import { HighlightCard3D } from './HighlightCard3D';
-import { Terminal, Shield, Bug, FolderCode, Briefcase, Award } from 'lucide-react';
+import { Terminal, ShieldAlert, Bug, Wrench, Calendar, GraduationCap } from 'lucide-react';
 
-export const MetricsBar = () => {
-  const stats = [
-    { 
-      icon: Terminal, 
-      value: 'Solved', 
-      label: 'PortSwigger Labs', 
-      desc: 'Hands-on Web AppSec solved', 
-      color: 'emerald' as const 
-    },
-    { 
-      icon: Shield, 
-      value: '25+', 
-      label: 'VAPT Assessments', 
-      desc: 'Target validations & audits', 
-      color: 'cyan' as const 
-    },
-    { 
-      icon: Bug, 
-      value: '10+', 
-      label: 'PoC Exploits', 
-      desc: 'Validated flaw findings', 
-      color: 'emerald' as const 
-    },
-    { 
-      icon: FolderCode, 
-      value: '4', 
-      label: 'Security Tools', 
-      desc: 'Custom detection utilities', 
-      color: 'cyan' as const 
-    },
-    { 
-      icon: Briefcase, 
-      value: '2026', 
-      label: 'Internship Completed', 
-      desc: 'Digit Defence (Remote)', 
-      color: 'emerald' as const 
-    },
-    { 
-      icon: Award, 
-      value: '2026', 
-      label: 'B.Sc. Graduate', 
-      desc: 'Osmania University', 
-      color: 'cyan' as const 
-    },
-  ];
+const stats = [
+  {
+    icon: Terminal,
+    value: 'Solved',
+    label: 'PortSwigger Labs',
+    sub: 'Hands-on Web AppSec Modules',
+  },
+  {
+    icon: ShieldAlert,
+    value: '25+',
+    label: 'VAPT Assessments',
+    sub: 'Target validations & audits',
+  },
+  {
+    icon: Bug,
+    value: '10+',
+    label: 'PoC Exploits',
+    sub: 'Validated flaw findings',
+  },
+  {
+    icon: Wrench,
+    value: '4',
+    label: 'Security Tools',
+    sub: 'Custom detection utilities',
+  },
+  {
+    icon: Calendar,
+    value: '2026',
+    label: 'Internship Completed',
+    sub: 'Digit Defence (Remote)',
+  },
+  {
+    icon: GraduationCap,
+    value: '2026',
+    label: 'B.Sc. Graduate',
+    sub: 'Osmania University',
+  },
+];
 
+export const MetricsBar: React.FC = () => {
   return (
-    <section className="py-10 px-6 max-w-7xl mx-auto">
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+    <section className="px-6 py-6 max-w-7xl mx-auto">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         {stats.map((s, idx) => {
           const Icon = s.icon;
           return (
-            <HighlightCard3D key={idx} glowColor={s.color} className="text-center">
-              <div className="flex flex-col items-center justify-center space-y-1.5 py-1">
-                <Icon className={`w-5 h-5 ${s.color === 'emerald' ? 'text-emerald-400' : 'text-cyan-400'}`} />
-                <span className={`text-xl font-black font-mono tracking-tight ${s.color === 'emerald' ? 'text-emerald-400' : 'text-cyan-400'}`}>
-                  {s.value}
-                </span>
-                <span className="text-xs font-bold text-white block">{s.label}</span>
-                <span className="text-[10px] text-slate-400 font-mono block">{s.desc}</span>
-              </div>
-            </HighlightCard3D>
+            <div
+              key={idx}
+              className="flex flex-col items-center justify-center p-4 rounded-xl border border-cyan-500/20 bg-slate-900/40 text-center font-mono hover:border-cyan-500/50 hover:bg-slate-900/70 transition-all shadow-lg"
+            >
+              <Icon className="h-5 w-5 text-cyan-400 mb-2" />
+              <div className="text-xl font-bold text-cyan-300">{s.value}</div>
+              <div className="text-xs font-semibold text-slate-200 mt-1">{s.label}</div>
+              <div className="text-[10px] text-slate-500 mt-0.5 leading-tight">{s.sub}</div>
+            </div>
           );
         })}
       </div>
