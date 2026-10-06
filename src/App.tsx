@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { MetricsBar } from './components/MetricsBar';
@@ -6,23 +7,41 @@ import { ResumeCV } from './components/ResumeCV';
 import { GithubMonitor } from './components/GithubMonitor';
 import { RecruitmentBanner } from './components/RecruitmentBanner';
 import { Contact } from './components/Contact';
+import { CyberIntroSplash } from './components/CyberIntroSplash';
+import { ParticleSpace } from './components/ParticleSpace';
 
 function App() {
+  const [showSplash, setShowSplash] = useState(true);
+
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-emerald-500 selection:text-slate-950">
-      <Navbar />
-      <main className="space-y-4">
-        <Hero />
-        <MetricsBar />
-        <AboutJson />
-        <ResumeCV />
-        <GithubMonitor />
-        <RecruitmentBanner />
-        <Contact />
-      </main>
-      <footer className="py-8 text-center text-xs font-mono text-slate-600 border-t border-slate-900">
-        &copy; {new Date().getFullYear()} Poondru Atharv Reddy. All systems secured.
-      </footer>
+    <div className="relative min-h-screen bg-black text-slate-100 selection:bg-cyan-400 selection:text-slate-950 overflow-x-hidden">
+      {/* Background Animated Particle Space Canvas */}
+      <ParticleSpace />
+
+      {/* Cyber Boot Intro Splash Sequence */}
+      {showSplash && (
+        <CyberIntroSplash 
+          name="POONDRU ATHARV REDDY" 
+          onComplete={() => setShowSplash(false)} 
+        />
+      )}
+
+      {/* Main Portfolio Content */}
+      <div className="relative z-10 space-y-4">
+        <Navbar />
+        <main className="space-y-4">
+          <Hero />
+          <MetricsBar />
+          <AboutJson />
+          <ResumeCV />
+          <GithubMonitor />
+          <RecruitmentBanner />
+          <Contact />
+        </main>
+        <footer className="py-8 text-center text-xs font-mono text-slate-600 border-t border-slate-900">
+          &copy; {new Date().getFullYear()} Poondru Atharv Reddy. All systems secured.
+        </footer>
+      </div>
     </div>
   );
 }
