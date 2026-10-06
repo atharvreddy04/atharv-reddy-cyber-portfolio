@@ -12,7 +12,7 @@ export const AboutJson = () => {
         <HighlightCard3D className="lg:col-span-6" glowColor="emerald">
           <div className="space-y-4">
             <p className="text-slate-300 text-sm leading-relaxed">
-              I specialize in Web Application Security, Vulnerability Assessment, and Penetration Testing (VAPT). My practical experience involves auditing dynamic endpoints, discovering OWASP Top 10 vulnerabilities, authoring reproducible Proof-of-Concepts (PoCs), and analyzing network traffic patterns.
+              I focus on Web Application Security, Vulnerability Assessment, and Penetration Testing (VAPT). My hands-on experience includes completing solved PortSwigger Web Security Academy labs, identifying OWASP Top 10 vulnerabilities, authoring reproducible Proof-of-Concepts (PoCs), and analyzing network traffic patterns.
             </p>
             <div className="space-y-2 text-xs font-mono pt-4 border-t border-slate-800">
               <div className="flex items-center gap-2 text-slate-300">
