@@ -6,35 +6,14 @@ body {
   color: #F3F4F6;
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Automatic highlight on every card/box across all sections */
-section div[class*="rounded"],
-section a[class*="rounded"],
-form div[class*="rounded"] {
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+/* Highlight any border box in sections when hovered */
+section [class*="border"] {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Hover glow for all boxes */
-section div[class*="rounded"]:hover,
-section a[class*="rounded"]:hover {
-  border-color: rgba(6, 182, 212, 0.55) !important;
-  box-shadow: 0 0 20px -3px rgba(6, 182, 212, 0.22), inset 0 0 12px -2px rgba(6, 182, 212, 0.06);
-}
-
-/* Inputs & textarea hover/focus highlight in form boxes */
-input:hover, textarea:hover,
-input:focus, textarea:focus {
-  border-color: rgba(6, 182, 212, 0.6) !important;
-  box-shadow: 0 0 12px -2px rgba(6, 182, 212, 0.25) !important;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+section [class*="border"]:hover {
+  border-color: #06b6d4 !important;
+  box-shadow: 0 0 16px rgba(6, 182, 212, 0.35) !important;
 }
