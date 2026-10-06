@@ -10,30 +10,22 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Subtle, cinematic text sheen */
-.hero-headline-shimmer {
-  background: linear-gradient(
-    115deg,
-    #ffffff 0%,
-    #f1f5f9 30%,
-    #38bdf8 50%,
-    #f1f5f9 70%,
-    #ffffff 100%
-  );
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: heroShimmer 9s ease-in-out infinite;
+/* Interactive Card Spotlight & Border Hover Glow */
+.cyber-card-highlight {
+  position: relative;
+  transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes heroShimmer {
-  0%, 100% {
-    background-position: 100% 0;
-  }
-  50% {
-    background-position: 0% 0;
-  }
+.cyber-card-highlight:hover {
+  border-color: rgba(6, 182, 212, 0.5) !important;
+  box-shadow: 0 0 25px -4px rgba(6, 182, 212, 0.18), inset 0 0 15px -2px rgba(6, 182, 212, 0.05);
+  transform: translateY(-2px);
+}
+
+.cyber-card-highlight-emerald:hover {
+  border-color: rgba(16, 185, 129, 0.5) !important;
+  box-shadow: 0 0 25px -4px rgba(16, 185, 129, 0.18), inset 0 0 15px -2px rgba(16, 185, 129, 0.05);
+  transform: translateY(-2px);
 }
 
 @media (prefers-reduced-motion: reduce) {
