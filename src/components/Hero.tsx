@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { Terminal, ShieldAlert, FileText, Send, ArrowUpRight } from 'lucide-react';
+import { Terminal, ShieldAlert, FileText, Send, ArrowUpRight, Activity } from 'lucide-react';
 import { HighlightCard3D } from './HighlightCard3D';
+import { MagneticButton } from './MagneticButton';
 
 export const Hero: React.FC = () => {
   const prefersReduced = useReducedMotion();
   const [terminalInput, setTerminalInput] = useState('');
   const [logs, setLogs] = useState<string[]>([
     'Atharv Security Engine v2.4 initialized...',
-    'Type "help" to inspect accessible nodes.',
+    'Surface monitor: SECURE [0 vulnerabilities exposed].',
+    'Type "help" for executable security modules.',
   ]);
 
   const handleCommand = (e: React.FormEvent) => {
@@ -17,13 +19,15 @@ export const Hero: React.FC = () => {
     let res = '';
 
     if (cmd === 'help') {
-      res = 'Commands: about, skills, projects, clear';
+      res = 'Modules: about, skills, projects, certifications, clear';
     } else if (cmd === 'about') {
-      res = 'Specialist in VAPT, SOC operations, vulnerability management, and incident response.';
+      res = 'Atharv Reddy — Penetration Tester & SOC Analyst. Focused on offensive validation and zero-trust engineering.';
     } else if (cmd === 'skills') {
-      res = 'Tools: Burp Suite Pro, Wireshark, Nmap, OpenVAS, Kali Linux, Python, Java.';
+      res = 'Arsenal: Burp Suite Pro, Nmap, Wireshark, OpenVAS, Metasploit, Python, Java, Kali Linux.';
     } else if (cmd === 'projects') {
-      res = 'Projects: Phishing URL Detector, Secure Folder Encryptor, Web AppSec Labs.';
+      res = 'Projects: Phishing URL Detection Engine, AES-256 Folder Cryptor, OWASP Lab Audits.';
+    } else if (cmd === 'certifications') {
+      res = 'Certifications: NASSCOM Security Professional, Google Cybersecurity, Digit Defence Internship.';
     } else if (cmd === 'clear') {
       setLogs([]);
       setTerminalInput('');
@@ -31,135 +35,195 @@ export const Hero: React.FC = () => {
     } else if (cmd === '') {
       return;
     } else {
-      res = `Command not recognized: "${cmd}". Type "help".`;
+      res = `Engine: command not found: "${cmd}". Enter "help" for available protocols.`;
     }
 
     setLogs((prev) => [...prev, `atharv@sec-ops:~$ ${terminalInput}`, res]);
     setTerminalInput('');
   };
 
-  // Apple & Linear style timing curves
-  const springEase = [0.16, 1, 0.3, 1] as const;
+  // Apple/Linear easing cubic-bezier curve
+  const easeCurve = [0.16, 1, 0.3, 1] as const;
 
+  // Staggered Container
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.15,
+        staggerChildren: 0.08,
+        delayChildren: 0.12,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 24, filter: 'blur(8px)' },
+    hidden: { opacity: 0, y: prefersReduced ? 0 : 28, filter: 'blur(6px)' },
     visible: {
       opacity: 1,
       y: 0,
       filter: 'blur(0px)',
       transition: {
-        duration: 0.85,
-        ease: springEase,
+        duration: 0.9,
+        ease: easeCurve,
       },
     },
   };
 
+  // Word-by-word mask reveal variants
+  const nameWords = ['Poondru', 'Atharv', 'Reddy'];
+  const wordVariants = {
+    hidden: { y: '120%', opacity: 0, filter: 'blur(4px)' },
+    visible: (i: number) => ({
+      y: '0%',
+      opacity: 1,
+      filter: 'blur(0px)',
+      transition: {
+        duration: 0.9,
+        delay: 0.2 + i * 0.1,
+        ease: easeCurve,
+      },
+    }),
+  };
+
   return (
-    <section id="about" className="relative pt-32 pb-20 px-6 max-w-7xl mx-auto overflow-hidden">
+    <section
+      id="about"
+      className="relative pt-32 pb-24 px-6 max-w-7xl mx-auto overflow-hidden font-mono"
+    >
       <motion.div
         variants={containerVariants}
         initial={prefersReduced ? false : 'hidden'}
         animate="visible"
-        className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center"
+        className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
       >
-        {/* Left Column: Pitched Typography & CTAs */}
-        <div className="lg:col-span-7 space-y-6">
-          {/* Badge */}
+        {/* Left Column: Hero Typography & Actions */}
+        <div className="lg:col-span-7 space-y-7">
+          {/* Operational Status Pill */}
           <motion.div variants={itemVariants}>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 backdrop-blur-md shadow-[0_0_15px_-3px_rgba(6,182,212,0.25)]">
-              <ShieldAlert className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
-              <span>Offensive &amp; Defensive Security Operations</span>
+            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full text-xs font-mono bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 backdrop-blur-md shadow-[0_0_20px_-3px_rgba(6,182,212,0.25)]">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+              </span>
+              <ShieldAlert className="w-3.5 h-3.5 text-cyan-400" />
+              <span>OFFENSIVE &amp; DEFENSIVE SECURITY OPERATIONS</span>
             </div>
           </motion.div>
 
-          {/* Headline Name */}
-          <motion.div variants={itemVariants} className="overflow-hidden">
-            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight hero-headline-shimmer">
-              Poondru Atharv Reddy
+          {/* Masked Name Reveal */}
+          <div className="overflow-hidden py-1">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight flex flex-wrap gap-x-4">
+              {nameWords.map((word, i) => (
+                <span key={word} className="mask-reveal-clip inline-block overflow-hidden">
+                  <motion.span
+                    custom={i}
+                    variants={wordVariants}
+                    initial="hidden"
+                    animate="visible"
+                    className="inline-block hero-headline-shimmer"
+                  >
+                    {word}
+                  </motion.span>
+                </span>
+              ))}
             </h1>
-          </motion.div>
+          </div>
 
-          {/* Technical Specialty Roles */}
-          <motion.div variants={itemVariants}>
-            <p className="text-sm sm:text-base text-slate-300 font-mono leading-relaxed">
-              Cybersecurity Analyst <span className="text-emerald-400">|</span> VAPT &amp; SOC Analyst <span className="text-emerald-400">|</span> Web Application Security <span className="text-emerald-400">|</span> Vulnerability Management <span className="text-emerald-400">|</span> Threat Detection &amp; Incident Response
+          {/* Subtitle with High-Contrast Specialization Pills */}
+          <motion.div variants={itemVariants} className="space-y-3">
+            <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-semibold">
+              Cybersecurity Analyst <span className="text-cyan-400">|</span> VAPT &amp; SOC Analyst{' '}
+              <span className="text-cyan-400">|</span> Web Application Security{' '}
+              <span className="text-cyan-400">|</span> Threat Detection &amp; Incident Response
+            </p>
+            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-xl">
+              Specialized in validating OWASP Top 10 vulnerabilities, testing attack surfaces with
+              Burp Suite &amp; OpenVAS, formulating actionable remediation guidance, and engineering
+              defensive countermeasures.
             </p>
           </motion.div>
 
-          {/* Value Proposition */}
-          <motion.div variants={itemVariants}>
-            <p className="text-slate-400 leading-relaxed max-w-xl text-sm sm:text-base">
-              Practical experience evaluating attack surfaces, engineering PoC exploits, performing vulnerability assessments, and formulating actionable remediation roadmaps.
-            </p>
-          </motion.div>
-
-          {/* Interactive Magnetic Action Buttons */}
-          <motion.div variants={itemVariants} className="flex flex-wrap gap-4 pt-2 font-mono">
-            <a
+          {/* Magnetic CTA Buttons */}
+          <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-4 pt-2">
+            <MagneticButton
               href="#resume"
-              className="group relative px-5 py-3 rounded-xl border border-slate-700 bg-slate-900/70 text-slate-200 text-sm font-semibold hover:border-cyan-400/60 hover:bg-slate-900 hover:text-white transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-[0_0_20px_-4px_rgba(6,182,212,0.35)] active:scale-[0.98]"
+              className="group relative px-6 py-3.5 rounded-xl border border-slate-700 bg-slate-900/80 text-slate-200 text-xs font-bold hover:border-cyan-400/80 hover:bg-slate-900 hover:text-white transition-all duration-300 flex items-center gap-2.5 shadow-lg shadow-black/40 hover:shadow-[0_0_24px_-4px_rgba(6,182,212,0.35)]"
             >
               <FileText className="w-4 h-4 text-cyan-400 transition-transform duration-300 group-hover:scale-110" />
-              <span>View Resume</span>
-              <ArrowUpRight className="w-3.5 h-3.5 opacity-50 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" />
-            </a>
+              <span>INSPECT RESUME</span>
+              <ArrowUpRight className="w-3.5 h-3.5 text-slate-500 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-cyan-400" />
+            </MagneticButton>
 
-            <a
+            <MagneticButton
               href="#contact"
-              className="group relative px-5 py-3 rounded-xl bg-emerald-500 text-slate-950 font-semibold text-sm hover:bg-emerald-400 transition-all duration-300 shadow-lg shadow-emerald-500/20 hover:shadow-[0_0_22px_rgba(16,185,129,0.45)] flex items-center gap-2 active:scale-[0.98]"
+              className="group relative px-6 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-bold text-xs hover:from-emerald-400 hover:to-teal-300 transition-all duration-300 shadow-lg shadow-emerald-500/20 hover:shadow-[0_0_28px_rgba(16,185,129,0.45)] flex items-center gap-2.5"
             >
-              <Send className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
-              <span>Get In Touch</span>
-            </a>
+              <Send className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+              <span>ESTABLISH CONTACT</span>
+            </MagneticButton>
+          </motion.div>
+
+          {/* Quick Metrics Ticker */}
+          <motion.div
+            variants={itemVariants}
+            className="flex items-center gap-6 pt-4 border-t border-slate-800/80 text-[11px] text-slate-400"
+          >
+            <div className="flex items-center gap-2">
+              <Activity className="w-3.5 h-3.5 text-emerald-400" />
+              <span>SECURITY AUDITS: <strong className="text-white">ACTIVE</strong></span>
+            </div>
+            <div>
+              CLEARANCE: <strong className="text-cyan-400">CONFIRMED</strong>
+            </div>
           </motion.div>
         </div>
 
-        {/* Right Column: Interactive Terminal in 3D Highlight Card */}
-        <motion.div
-          variants={itemVariants}
-          className="lg:col-span-5"
-        >
-          <HighlightCard3D glowColor="emerald">
-            <div className="bg-slate-950 px-4 py-2.5 border-b border-slate-800 flex items-center justify-between rounded-t-lg -mx-6 -mt-6 mb-4">
-              <div className="flex items-center gap-2">
-                <Terminal className="w-4 h-4 text-emerald-400" />
-                <span className="text-xs font-mono text-slate-400">sec_terminal ~ session_id_902</span>
+        {/* Right Column: 3D Interactive Terminal Dock */}
+        <motion.div variants={itemVariants} className="lg:col-span-5">
+          <HighlightCard3D glowColor="cyan">
+            {/* Terminal Window Header Bar */}
+            <div className="bg-slate-950/90 px-4 py-3 border-b border-slate-800 flex items-center justify-between rounded-t-xl -mx-6 -mt-6 mb-4">
+              <div className="flex items-center gap-2.5">
+                <Terminal className="w-4 h-4 text-cyan-400" />
+                <span className="text-xs font-mono text-slate-300 tracking-wider">
+                  sec-ops-terminal.sh
+                </span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-slate-700" />
-                <div className="w-2 h-2 rounded-full bg-slate-700" />
-                <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.8)]" />
+              <div className="flex items-center gap-2">
+                <div className="w-2.5 h-2.5 rounded-full bg-slate-800 border border-slate-700" />
+                <div className="w-2.5 h-2.5 rounded-full bg-amber-500/40 border border-amber-500/60" />
+                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
               </div>
             </div>
 
-            <div className="font-mono text-xs text-slate-300 space-y-2 h-64 overflow-y-auto pr-1">
+            {/* Interactive Terminal Stream */}
+            <div className="font-mono text-xs text-slate-300 space-y-2.5 h-64 overflow-y-auto pr-1 selection:bg-cyan-500 selection:text-slate-950">
               {logs.map((log, idx) => (
                 <div
                   key={idx}
-                  className={log.startsWith('atharv@') ? 'text-emerald-400 font-semibold' : 'text-slate-300'}
+                  className={
+                    log.startsWith('atharv@')
+                      ? 'text-cyan-400 font-bold'
+                      : log.includes('SECURE') || log.includes('initialized')
+                      ? 'text-emerald-400'
+                      : 'text-slate-300 leading-relaxed'
+                  }
                 >
                   {log}
                 </div>
               ))}
-              <form onSubmit={handleCommand} className="flex items-center gap-1.5 mt-2">
-                <span className="text-emerald-400 font-semibold">atharv@sec-ops:~$</span>
+
+              <form onSubmit={handleCommand} className="flex items-center gap-2 pt-1">
+                <span className="text-emerald-400 font-bold">atharv@sec-ops:~$</span>
                 <input
                   type="text"
                   className="bg-transparent outline-none flex-1 text-slate-100 placeholder:text-slate-600 focus:placeholder-transparent"
                   value={terminalInput}
                   onChange={(e) => setTerminalInput(e.target.value)}
-                  placeholder="help"
+                  placeholder="type 'help'"
+                  autoComplete="off"
+                  spellCheck="false"
                 />
               </form>
             </div>
