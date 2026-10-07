@@ -1,64 +1,82 @@
-import React from 'react';
-import { HighlightCard3D } from './HighlightCard3D';
-import { MapPin, GraduationCap, ShieldCheck } from 'lucide-react';
+import React, { useState } from 'react';
+import { ShieldCheck, Terminal, Cpu } from 'lucide-react';
 
-export const AboutJson = () => {
+export const AboutJson: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<'profile' | 'capabilities'>('profile');
+
+  const profileJson = {
+    name: "POONDRU ATHARV REDDY",
+    role: "Cybersecurity Analyst & VAPT Specialist",
+    education: "B.Sc. Computer Science (Osmania University)",
+    specializations: [
+      "Vulnerability Assessment & Penetration Testing (VAPT)",
+      "Web Application Security (OWASP Top 10)",
+      "Network Traffic Analysis & Packet Inspection",
+      "Threat Detection & Security Information Management"
+    ],
+    toolset: [
+      "Burp Suite Pro",
+      "OpenVAS / Greenbone",
+      "Nmap",
+      "Wireshark",
+      "Metasploit",
+      "Kali Linux"
+    ],
+    status: "Open for Security Operations & Penetration Testing Engagements"
+  };
+
   return (
-    <section className="py-16 px-6 max-w-7xl mx-auto">
-      <div className="text-xs font-mono text-emerald-400 mb-2">// ABOUT_ME</div>
-      <h2 className="text-3xl font-bold mb-8 tracking-tight aurora-heading">Security Focus & Profile Telemetry</h2>
+    <section id="about-dossier" className="px-6 py-8 max-w-7xl mx-auto w-full font-mono">
+      <div className="flex items-center gap-2 text-xs text-emerald-400 mb-2">
+        <ShieldCheck className="h-4 w-4" />
+        <span>// ABOUT_ME</span>
+      </div>
+      <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">
+        Security Focus &amp; Profile Telemetry
+      </h2>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-        <HighlightCard3D className="lg:col-span-6" glowColor="emerald">
-          <div className="space-y-4">
-            <p className="text-slate-300 text-sm leading-relaxed">
-              I specialize in Web Application Security, Vulnerability Assessment, and Penetration Testing (VAPT). My practical experience involves auditing dynamic endpoints, discovering OWASP Top 10 vulnerabilities, authoring reproducible Proof-of-Concepts (PoCs), and analyzing network traffic patterns.
-            </p>
-            <div className="space-y-2 text-xs font-mono pt-4 border-t border-slate-800">
-              <div className="flex items-center gap-2 text-slate-300">
-                <MapPin className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Hyderabad, Telangana, India</span>
-              </div>
-              <div className="flex items-center gap-2 text-slate-300">
-                <GraduationCap className="w-4 h-4 text-cyan-400 shrink-0" />
-                <span>B.Sc. in Computer Science — Osmania University (2022–2026)</span>
-              </div>
-              <div className="flex items-center gap-2 text-slate-300">
-                <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Focus: Web AppSec &middot; OWASP Top 10 &middot; VAPT &middot; SOC Analysis</span>
-              </div>
+      {/* Grid with full-width responsive columns to prevent squishing */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full items-start">
+        {/* Left Dossier Card */}
+        <div className="lg:col-span-5 w-full min-w-0 rounded-xl border border-cyan-500/20 bg-slate-900/60 p-6 backdrop-blur-md space-y-4">
+          <div className="flex items-center gap-2 text-cyan-400 font-semibold text-sm">
+            <Cpu className="h-4 w-4" />
+            <span>OPERATIONAL_PROFILE</span>
+          </div>
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            I specialize in Web Application Security, Vulnerability Assessment, and Penetration Testing (VAPT). My practical experience involves auditing dynamic endpoints, discovering high-impact OWASP vulnerabilities with Burp Suite and OpenVAS, engineering reproducible Proof of Concepts (PoCs), and establishing zero-trust protection perimeters.
+          </p>
+          <div className="pt-4 border-t border-slate-800 text-xs text-slate-400 space-y-1.5">
+            <div>LOCATION: <span className="text-slate-200">Hyderabad, India</span></div>
+            <div>STATUS: <span className="text-emerald-400">Available Immediately</span></div>
+          </div>
+        </div>
+
+        {/* Right JSON Terminal Card */}
+        <div className="lg:col-span-7 w-full min-w-0 rounded-xl border border-cyan-500/20 bg-slate-900/60 p-6 backdrop-blur-md overflow-hidden">
+          <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+            <div className="flex items-center gap-2 text-xs text-slate-400">
+              <Terminal className="h-4 w-4 text-emerald-400" />
+              <span>$ cat profile.json</span>
+            </div>
+            <div className="flex gap-2 text-xs">
+              <button
+                onClick={() => setActiveTab('profile')}
+                className={`px-2.5 py-1 rounded transition-colors ${
+                  activeTab === 'profile'
+                    ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40'
+                    : 'text-slate-500 hover:text-slate-300'
+                }`}
+              >
+                profile
+              </button>
             </div>
           </div>
-        </HighlightCard3D>
 
-        <HighlightCard3D className="lg:col-span-6" glowColor="cyan">
-          <div className="space-y-2">
-            <div className="text-xs font-mono text-slate-400 border-b border-slate-800 pb-2">
-              $ cat profile.json
-            </div>
-            <pre className="font-mono text-[11px] sm:text-xs text-slate-300 overflow-x-auto leading-relaxed py-1">
-{`{
-  "name": "Poondru Atharv Reddy",
-  "role": "Cybersecurity Analyst / VAPT",
-  "education": "B.Sc. Computer Science (OU)",
-  "specialties": [
-    "Web Application Pentesting",
-    "OWASP Top 10 Auditing",
-    "Threat Detection & Incident Response",
-    "Automated Scanner Engineering"
-  ],
-  "tooling": [
-    "Burp Suite Pro",
-    "OpenVAS",
-    "Wireshark",
-    "Nmap",
-    "Kali Linux"
-  ],
-  "status": "Ready for VAPT & SOC Engagements"
-}`}
-            </pre>
-          </div>
-        </HighlightCard3D>
+          <pre className="text-xs text-emerald-400 font-mono overflow-x-auto p-2 bg-slate-950/80 rounded-lg leading-relaxed whitespace-pre">
+            {JSON.stringify(profileJson, null, 2)}
+          </pre>
+        </div>
       </div>
     </section>
   );

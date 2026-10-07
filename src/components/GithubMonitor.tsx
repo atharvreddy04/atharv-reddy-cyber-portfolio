@@ -1,83 +1,77 @@
 import React from 'react';
-import { HighlightCard3D } from './HighlightCard3D';
-import { GitCommit, ExternalLink, Code2 } from 'lucide-react';
+import { GitBranch, ExternalLink, Activity, Terminal } from 'lucide-react';
 
-export const GithubMonitor = () => {
-  const matrixCells = Array.from({ length: 60 }, (_, i) => {
-    const levels = ['bg-slate-800', 'bg-emerald-950', 'bg-emerald-700', 'bg-emerald-500', 'bg-emerald-400'];
-    const weights = [0, 0, 1, 2, 3, 4, 1, 2, 0, 3];
-    return levels[weights[i % weights.length]];
-  });
-
+export const GithubMonitor: React.FC = () => {
   return (
-    <section className="py-16 px-6 max-w-7xl mx-auto">
-      <div className="text-xs font-mono text-emerald-400 mb-2">// GITHUB_CONTRIBUTIONS</div>
-      <h2 className="text-3xl font-bold mb-8 tracking-tight aurora-heading">Active Repositories & Build Nodes</h2>
+    <section id="repositories" className="px-6 py-8 max-w-7xl mx-auto w-full font-mono">
+      <div className="flex items-center gap-2 text-xs text-emerald-400 mb-2">
+        <GitBranch className="h-4 w-4" />
+        <span>SYSTEM REPOSITORIES &amp; NODES</span>
+      </div>
+      <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">
+        Active Repositories &amp; Build Nodes
+      </h2>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <HighlightCard3D className="lg:col-span-7" glowColor="emerald">
-          <div className="space-y-4">
-            <div className="flex items-center justify-between font-mono text-xs text-slate-400">
-              <span className="flex items-center gap-1.5 text-emerald-400 font-bold">
-                <GitCommit className="w-4 h-4" /> atharvreddy04 / Activity Matrix
-              </span>
-              <span className="text-[11px] text-slate-500">Live Build telemetry</span>
+      {/* Grid with full-width columns to prevent width squishing */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full items-start">
+        {/* Left Monitor Block */}
+        <div className="lg:col-span-5 w-full min-w-0 rounded-xl border border-cyan-500/20 bg-slate-900/60 p-6 backdrop-blur-md space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 text-cyan-400 font-semibold text-xs">
+              <Activity className="h-4 w-4" />
+              <span>atharvreddy04 / Activity Matrix</span>
             </div>
-
-            <div className="grid grid-cols-12 gap-1.5 p-3 rounded-xl bg-slate-950/70 border border-slate-800/80">
-              {matrixCells.map((cls, idx) => (
-                <div key={idx} className={`h-4 rounded-sm ${cls} transition-colors hover:ring-1 hover:ring-emerald-300`} />
-              ))}
-            </div>
-
-            <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 pt-2">
-              <span>Less</span>
-              <div className="flex gap-1">
-                <span className="w-2.5 h-2.5 rounded-sm bg-slate-800" />
-                <span className="w-2.5 h-2.5 rounded-sm bg-emerald-950" />
-                <span className="w-2.5 h-2.5 rounded-sm bg-emerald-700" />
-                <span className="w-2.5 h-2.5 rounded-sm bg-emerald-400" />
-              </div>
-              <span>More</span>
-            </div>
+            <span className="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
+              SYNCHRONIZED
+            </span>
           </div>
-        </HighlightCard3D>
 
-        <HighlightCard3D className="lg:col-span-5" glowColor="cyan">
-          <div className="space-y-4 flex flex-col justify-between h-full">
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 text-cyan-400 font-mono text-xs font-bold">
-                <Code2 className="w-4 h-4" /> Repository Monitor
-              </div>
-              <div>
-                <h4 className="text-white font-bold text-sm">atharv-reddy-cyber-portfolio</h4>
-                <p className="text-slate-400 text-xs mt-1">
-                  React 18, Vite, TypeScript, and 3D spatial highlight components.
-                </p>
-              </div>
+          <p className="text-xs text-slate-300 leading-relaxed">
+            Continuous development and research repositories tracking security tooling, automated CVE replication scripts, and modern defensive system configurations.
+          </p>
 
-              <div className="space-y-1.5 font-mono text-xs">
-                <div className="flex justify-between text-slate-400 text-[11px]">
-                  <span>TypeScript / React</span>
-                  <span className="text-cyan-400">65%</span>
-                </div>
-                <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-                  <div className="bg-cyan-400 h-full w-[65%]" />
-                </div>
-              </div>
-            </div>
-
-            <a
-              href="https://github.com/atharvreddy04"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full py-2.5 rounded-lg border border-slate-700 bg-slate-950 text-slate-200 text-xs font-mono font-bold flex items-center justify-center gap-2 hover:border-emerald-500/60 hover:text-emerald-400 transition-colors"
-            >
-              <span>Visit GitHub Profile</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
+          <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
+            <span>Branch: main</span>
+            <span className="text-emerald-400">Status: 200 OK</span>
           </div>
-        </HighlightCard3D>
+        </div>
+
+        {/* Right Active Repo Card */}
+        <div className="lg:col-span-7 w-full min-w-0 rounded-xl border border-cyan-500/20 bg-slate-900/60 p-6 backdrop-blur-md space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 text-cyan-400 font-semibold text-xs">
+              <Terminal className="h-4 w-4" />
+              <span>Repository Node</span>
+            </div>
+            <span className="text-[10px] text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/30">
+              Vite + React
+            </span>
+          </div>
+
+          <div>
+            <h3 className="text-base font-bold text-white">
+              atharv-reddy-cyber-portfolio
+            </h3>
+            <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+              React, Vite, TypeScript, and 3D spatial highlight components showcasing verified security credentials and telemetry.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-4 text-xs text-slate-400 pt-2 border-t border-slate-800">
+            <span>TypeScript / React</span>
+            <span className="text-emerald-400">• Production Ready</span>
+          </div>
+
+          <a
+            href="https://github.com/atharvreddy04"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-xs text-cyan-300 hover:text-white transition-colors pt-2"
+          >
+            <span>Visit GitHub Profile</span>
+            <ExternalLink className="h-3.5 w-3.5" />
+          </a>
+        </div>
       </div>
     </section>
   );

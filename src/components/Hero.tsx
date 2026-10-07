@@ -42,64 +42,46 @@ export const Hero: React.FC = () => {
     setTerminalInput('');
   };
 
-  // Apple/Linear easing cubic-bezier curve
   const easeCurve = [0.16, 1, 0.3, 1] as const;
 
-  // Staggered Container
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.08,
-        delayChildren: 0.12,
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: prefersReduced ? 0 : 28, filter: 'blur(6px)' },
+    hidden: { opacity: 0, y: prefersReduced ? 0 : 20 },
     visible: {
       opacity: 1,
       y: 0,
-      filter: 'blur(0px)',
       transition: {
-        duration: 0.9,
+        duration: 0.7,
         ease: easeCurve,
       },
     },
   };
 
-  // Word-by-word mask reveal variants
-  const nameWords = ['Poondru', 'Atharv', 'Reddy'];
-  const wordVariants = {
-    hidden: { y: '120%', opacity: 0, filter: 'blur(4px)' },
-    visible: (i: number) => ({
-      y: '0%',
-      opacity: 1,
-      filter: 'blur(0px)',
-      transition: {
-        duration: 0.9,
-        delay: 0.2 + i * 0.1,
-        ease: easeCurve,
-      },
-    }),
-  };
+  const nameWords = ['POONDRU', 'ATHARV', 'REDDY'];
 
   return (
     <section
       id="about"
-      className="relative pt-32 pb-24 px-6 max-w-7xl mx-auto overflow-hidden font-mono"
+      className="relative pt-28 pb-16 px-6 max-w-7xl mx-auto w-full font-mono overflow-hidden"
     >
       <motion.div
         variants={containerVariants}
         initial={prefersReduced ? false : 'hidden'}
         animate="visible"
-        className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
+        className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full"
       >
-        {/* Left Column: Hero Typography & Actions */}
-        <div className="lg:col-span-7 space-y-7">
-          {/* Operational Status Pill */}
+        {/* Left Column: Headline & Bio */}
+        <div className="lg:col-span-7 w-full min-w-0 space-y-6">
           <motion.div variants={itemVariants}>
             <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full text-xs font-mono bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 backdrop-blur-md shadow-[0_0_20px_-3px_rgba(6,182,212,0.25)]">
               <span className="relative flex h-2 w-2">
@@ -107,31 +89,25 @@ export const Hero: React.FC = () => {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
               </span>
               <ShieldAlert className="w-3.5 h-3.5 text-cyan-400" />
-              <span>OFFENSIVE &amp; DEFENSIVE SECURITY OPERATIONS</span>
+              <span className="tracking-wide">OFFENSIVE &amp; DEFENSIVE SECURITY OPERATIONS</span>
             </div>
           </motion.div>
 
-          {/* Masked Name Reveal */}
-          <div className="overflow-hidden py-1">
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight flex flex-wrap gap-x-4">
+          {/* Capital Name Header */}
+          <motion.div variants={itemVariants} className="w-full">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white flex flex-wrap gap-x-3.5 gap-y-1">
               {nameWords.map((word, i) => (
-                <span key={word} className="mask-reveal-clip inline-block overflow-hidden">
-                  <motion.span
-                    custom={i}
-                    variants={wordVariants}
-                    initial="hidden"
-                    animate="visible"
-                    className="inline-block hero-headline-shimmer"
-                  >
-                    {word}
-                  </motion.span>
+                <span
+                  key={i}
+                  className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-cyan-300"
+                >
+                  {word}
                 </span>
               ))}
             </h1>
-          </div>
+          </motion.div>
 
-          {/* Subtitle with High-Contrast Specialization Pills */}
-          <motion.div variants={itemVariants} className="space-y-3">
+          <motion.div variants={itemVariants} className="space-y-3 w-full">
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-semibold">
               Cybersecurity Analyst <span className="text-cyan-400">|</span> VAPT &amp; SOC Analyst{' '}
               <span className="text-cyan-400">|</span> Web Application Security{' '}
@@ -144,11 +120,11 @@ export const Hero: React.FC = () => {
             </p>
           </motion.div>
 
-          {/* Magnetic CTA Buttons */}
+          {/* CTA Buttons */}
           <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-4 pt-2">
             <MagneticButton
               href="#resume"
-              className="group relative px-6 py-3.5 rounded-xl border border-slate-700 bg-slate-900/80 text-slate-200 text-xs font-bold hover:border-cyan-400/80 hover:bg-slate-900 hover:text-white transition-all duration-300 flex items-center gap-2.5 shadow-lg shadow-black/40 hover:shadow-[0_0_24px_-4px_rgba(6,182,212,0.35)]"
+              className="group relative px-6 py-3.5 rounded-xl border border-slate-700 bg-slate-900/80 text-slate-200 text-xs font-bold hover:border-cyan-400 hover:bg-slate-900 hover:text-white transition-all duration-300 flex items-center gap-2.5 shadow-lg shadow-black/40 hover:shadow-[0_0_24px_-4px_rgba(6,182,212,0.35)]"
             >
               <FileText className="w-4 h-4 text-cyan-400 transition-transform duration-300 group-hover:scale-110" />
               <span>INSPECT RESUME</span>
@@ -164,7 +140,6 @@ export const Hero: React.FC = () => {
             </MagneticButton>
           </motion.div>
 
-          {/* Quick Metrics Ticker */}
           <motion.div
             variants={itemVariants}
             className="flex items-center gap-6 pt-4 border-t border-slate-800/80 text-[11px] text-slate-400"
@@ -180,9 +155,8 @@ export const Hero: React.FC = () => {
         </div>
 
         {/* Right Column: 3D Interactive Terminal Dock */}
-        <motion.div variants={itemVariants} className="lg:col-span-5">
+        <motion.div variants={itemVariants} className="lg:col-span-5 w-full min-w-0">
           <HighlightCard3D glowColor="cyan">
-            {/* Terminal Window Header Bar */}
             <div className="bg-slate-950/90 px-4 py-3 border-b border-slate-800 flex items-center justify-between rounded-t-xl -mx-6 -mt-6 mb-4">
               <div className="flex items-center gap-2.5">
                 <Terminal className="w-4 h-4 text-cyan-400" />
@@ -197,8 +171,7 @@ export const Hero: React.FC = () => {
               </div>
             </div>
 
-            {/* Interactive Terminal Stream */}
-            <div className="font-mono text-xs text-slate-300 space-y-2.5 h-64 overflow-y-auto pr-1 selection:bg-cyan-500 selection:text-slate-950">
+            <div className="font-mono text-xs text-slate-300 space-y-2.5 h-64 overflow-y-auto pr-1">
               {logs.map((log, idx) => (
                 <div
                   key={idx}
