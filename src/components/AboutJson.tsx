@@ -1,80 +1,63 @@
-import React, { useState } from 'react';
-import { ShieldCheck, Terminal, Cpu } from 'lucide-react';
+import React from 'react';
+import { MapPin, GraduationCap, Crosshair } from 'lucide-react';
 
 export const AboutJson: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'profile' | 'capabilities'>('profile');
-
   const profileJson = {
-    name: "POONDRU ATHARV REDDY",
+    name: "Poondru Atharv Reddy",
     role: "Cybersecurity Analyst & VAPT Specialist",
-    education: "B.Sc. Computer Science (Osmania University)",
-    specializations: [
-      "Vulnerability Assessment & Penetration Testing (VAPT)",
-      "Web Application Security (OWASP Top 10)",
-      "Network Traffic Analysis & Packet Inspection",
-      "Threat Detection & Security Information Management"
+    education: "B.Sc. in Computer Science - Osmania University",
+    vulnerabilities_reported: "OWASP Top 10 Verified",
+    labs_completed: "PortSwigger & DVWA",
+    specialties: [
+      "Web Application Pentesting",
+      "Vulnerability Assessment & VAPT",
+      "OWASP Top 10 Auditing",
+      "Network Packet Analysis (Wireshark)"
     ],
-    toolset: [
-      "Burp Suite Pro",
-      "OpenVAS / Greenbone",
-      "Nmap",
-      "Wireshark",
-      "Metasploit",
-      "Kali Linux"
+    certifications: [
+      "NASSCOM Certified Cyber Security Professional",
+      "Google Foundations of Cybersecurity",
+      "Digit Defence Cybersecurity Internship"
     ],
-    status: "Open for Security Operations & Penetration Testing Engagements"
+    status: "Open to security opportunities",
+    available_immediately: true
   };
 
   return (
-    <section id="about-dossier" className="px-6 py-8 max-w-7xl mx-auto w-full font-mono">
-      <div className="flex items-center gap-2 text-xs text-emerald-400 mb-2">
-        <ShieldCheck className="h-4 w-4" />
-        <span>// ABOUT_ME</span>
-      </div>
-      <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">
-        Security Focus &amp; Profile Telemetry
+    <section id="about" className="px-6 py-12 max-w-7xl mx-auto font-mono">
+      {/* Token Header */}
+      <h2 className="text-xl sm:text-2xl font-bold text-cyan-400 tracking-wider mb-6">
+        // ABOUT_ME
       </h2>
 
-      {/* Grid with full-width responsive columns to prevent squishing */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full items-start">
-        {/* Left Dossier Card */}
-        <div className="lg:col-span-5 w-full min-w-0 rounded-xl border border-cyan-500/20 bg-slate-900/60 p-6 backdrop-blur-md space-y-4">
-          <div className="flex items-center gap-2 text-cyan-400 font-semibold text-sm">
-            <Cpu className="h-4 w-4" />
-            <span>OPERATIONAL_PROFILE</span>
-          </div>
-          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            I specialize in Web Application Security, Vulnerability Assessment, and Penetration Testing (VAPT). My practical experience involves auditing dynamic endpoints, discovering high-impact OWASP vulnerabilities with Burp Suite and OpenVAS, engineering reproducible Proof of Concepts (PoCs), and establishing zero-trust protection perimeters.
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Left Column: Narrative & Key Attribute Items */}
+        <div className="lg:col-span-6 space-y-6 text-xs sm:text-sm text-slate-300">
+          <p className="leading-relaxed">
+            I focus on Web Application Security and Vulnerability Assessment. My experience includes auditing attack surfaces, completing hands-on PortSwigger Web Security Academy labs, verifying OWASP Top 10 vulnerabilities with Burp Suite and OpenVAS, developing reproducible PoC scripts, and gaining practical offensive-defensive knowledge through internships.
           </p>
-          <div className="pt-4 border-t border-slate-800 text-xs text-slate-400 space-y-1.5">
-            <div>LOCATION: <span className="text-slate-200">Hyderabad, India</span></div>
-            <div>STATUS: <span className="text-emerald-400">Available Immediately</span></div>
+
+          <div className="space-y-3 pt-2 text-xs">
+            <div className="flex items-center gap-3 text-slate-300">
+              <MapPin className="h-4 w-4 text-cyan-400 shrink-0" />
+              <span>Hyderabad, Telangana, India</span>
+            </div>
+            <div className="flex items-center gap-3 text-slate-300">
+              <GraduationCap className="h-4 w-4 text-cyan-400 shrink-0" />
+              <span>B.Sc. in Computer Science &mdash; Osmania University</span>
+            </div>
+            <div className="flex items-center gap-3 text-slate-300">
+              <Crosshair className="h-4 w-4 text-cyan-400 shrink-0" />
+              <span>Web Pentesting &bull; SQL Injection &amp; XSS &bull; Business Logic Audits</span>
+            </div>
           </div>
         </div>
 
-        {/* Right JSON Terminal Card */}
-        <div className="lg:col-span-7 w-full min-w-0 rounded-xl border border-cyan-500/20 bg-slate-900/60 p-6 backdrop-blur-md overflow-hidden">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
-            <div className="flex items-center gap-2 text-xs text-slate-400">
-              <Terminal className="h-4 w-4 text-emerald-400" />
-              <span>$ cat profile.json</span>
-            </div>
-            <div className="flex gap-2 text-xs">
-              <button
-                onClick={() => setActiveTab('profile')}
-                className={`px-2.5 py-1 rounded transition-colors ${
-                  activeTab === 'profile'
-                    ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40'
-                    : 'text-slate-500 hover:text-slate-300'
-                }`}
-              >
-                profile
-              </button>
-            </div>
-          </div>
-
-          <pre className="text-xs text-emerald-400 font-mono overflow-x-auto p-2 bg-slate-950/80 rounded-lg leading-relaxed whitespace-pre">
-            {JSON.stringify(profileJson, null, 2)}
+        {/* Right Column: $ cat profile.json Code Box */}
+        <div className="lg:col-span-6 rounded-xl border border-cyan-500/20 bg-slate-900/60 p-5 backdrop-blur-md">
+          <div className="text-xs text-slate-400 mb-3">$ cat profile.json</div>
+          <pre className="text-xs font-mono text-cyan-300 overflow-x-auto leading-relaxed whitespace-pre bg-slate-950/70 p-4 rounded-lg border border-slate-800">
+{JSON.stringify(profileJson, null, 2)}
           </pre>
         </div>
       </div>

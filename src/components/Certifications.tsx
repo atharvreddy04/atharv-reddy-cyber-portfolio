@@ -45,22 +45,22 @@ export const Certifications: React.FC = () => {
 
   return (
     <section id="certifications" className="px-6 py-10 max-w-7xl mx-auto font-mono">
-      {/* Cyber Section Label */}
-      <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm tracking-wider uppercase mb-5">
-        <span className="text-emerald-500">🛡</span>
-        <h2>CERTIFICATIONS</h2>
+      {/* Section Header */}
+      <div className="flex items-center gap-2 text-cyan-400 font-bold text-sm tracking-wider uppercase mb-5">
+        <span>🛡</span>
+        <h2>[ CERTIFICATIONS ]</h2>
       </div>
 
-      {/* Featured Top Card */}
+      {/* Featured Card */}
       {featured && (
-        <div className="mb-6 rounded-lg border border-slate-800 bg-slate-950 overflow-hidden transition-all duration-300 hover:border-emerald-500/80">
-          <div className="relative bg-slate-900/60 border-b border-slate-800 p-8 sm:p-14 flex flex-col items-center justify-center text-center group">
+        <div className="mb-6 rounded-xl border border-cyan-500/20 bg-slate-900/60 overflow-hidden transition-all duration-300 hover:border-cyan-400">
+          <div className="relative bg-slate-950/70 border-b border-slate-800 p-8 sm:p-14 flex flex-col items-center justify-center text-center group">
             {/* Top-left Featured Badge */}
             <span className="absolute top-3 left-3 bg-emerald-500 text-slate-950 font-bold text-[10px] px-2.5 py-0.5 rounded tracking-wider uppercase">
               FEATURED
             </span>
 
-            <FileText className="h-16 w-16 text-slate-500 group-hover:text-emerald-400 transition-colors mb-4" />
+            <FileText className="h-16 w-16 text-slate-500 group-hover:text-cyan-400 transition-colors mb-4" />
 
             <h3 className="text-xl sm:text-2xl font-bold text-white tracking-wide">
               POONDRU ATHARV REDDY
@@ -68,15 +68,14 @@ export const Certifications: React.FC = () => {
             <p className="text-xs text-slate-400 mt-2">
               has successfully cleared the assessment on
             </p>
-            <div className="text-base sm:text-lg font-bold text-emerald-400 mt-1">
+            <div className="text-base sm:text-lg font-bold text-cyan-400 mt-1">
               Cyber Security Professional
             </div>
 
-            {/* Quick Action Overlay Buttons */}
             <div className="flex items-center gap-3 mt-6">
               <button
                 onClick={() => setModalPdf(featured.pdfPath)}
-                className="px-4 py-1.5 rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-300 text-xs hover:bg-emerald-500/20 transition-all flex items-center gap-1.5"
+                className="px-4 py-1.5 rounded-lg border border-cyan-500/40 bg-cyan-950/40 text-cyan-300 text-xs hover:bg-cyan-900/40 transition-all flex items-center gap-1.5"
               >
                 <ExternalLink className="h-3.5 w-3.5" />
                 <span>Inspect PDF</span>
@@ -84,7 +83,7 @@ export const Certifications: React.FC = () => {
               <a
                 href={featured.pdfPath}
                 download
-                className="px-4 py-1.5 rounded border border-slate-700 bg-slate-900 text-slate-300 text-xs hover:text-white hover:border-slate-500 transition-all flex items-center gap-1.5"
+                className="px-4 py-1.5 rounded-lg border border-slate-700 bg-slate-900 text-slate-300 text-xs hover:text-white hover:border-slate-500 transition-all flex items-center gap-1.5"
               >
                 <Download className="h-3.5 w-3.5" />
                 <span>Download</span>
@@ -92,7 +91,7 @@ export const Certifications: React.FC = () => {
             </div>
           </div>
 
-          {/* Metadata Bottom Strip */}
+          {/* Bottom Metadata Ribbon */}
           <div className="p-4 bg-slate-950 text-xs space-y-1">
             <div className="text-slate-100 font-bold">{featured.bulletTitle}</div>
             <div className="text-slate-400 text-[11px]">{featured.issuer}</div>
@@ -104,16 +103,15 @@ export const Certifications: React.FC = () => {
         </div>
       )}
 
-      {/* Grid Below Featured Item */}
+      {/* Grid of Secondary Certificates */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {others.map((cert) => (
           <div
             key={cert.id}
-            className="rounded-lg border border-slate-800 bg-slate-950 overflow-hidden transition-all duration-300 hover:border-emerald-500/80 flex flex-col justify-between"
+            className="rounded-xl border border-cyan-500/20 bg-slate-900/60 overflow-hidden transition-all duration-300 hover:border-cyan-400 flex flex-col justify-between"
           >
-            {/* Certificate Preview Box */}
-            <div className="bg-slate-900/40 p-10 flex flex-col items-center justify-center text-center border-b border-slate-800 group">
-              <FileText className="h-10 w-10 text-slate-600 group-hover:text-emerald-400 transition-colors mb-3" />
+            <div className="bg-slate-950/70 p-10 flex flex-col items-center justify-center text-center border-b border-slate-800 group">
+              <FileText className="h-10 w-10 text-slate-600 group-hover:text-cyan-400 transition-colors mb-3" />
               <div className="text-xs font-semibold text-slate-300 tracking-wide uppercase">
                 {cert.issuer}
               </div>
@@ -124,7 +122,7 @@ export const Certifications: React.FC = () => {
               <div className="flex items-center gap-2 mt-4">
                 <button
                   onClick={() => setModalPdf(cert.pdfPath)}
-                  className="px-3 py-1 rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-300 text-[11px] hover:bg-emerald-500/20 transition-all flex items-center gap-1"
+                  className="px-3 py-1 rounded-lg border border-cyan-500/40 bg-cyan-950/40 text-cyan-300 text-[11px] hover:bg-cyan-900/40 transition-all flex items-center gap-1"
                 >
                   <ExternalLink className="h-3 w-3" />
                   <span>Inspect</span>
@@ -132,7 +130,7 @@ export const Certifications: React.FC = () => {
                 <a
                   href={cert.pdfPath}
                   download
-                  className="px-3 py-1 rounded border border-slate-700 bg-slate-900 text-slate-300 text-[11px] hover:text-white transition-all flex items-center gap-1"
+                  className="px-3 py-1 rounded-lg border border-slate-700 bg-slate-900 text-slate-300 text-[11px] hover:text-white transition-all flex items-center gap-1"
                 >
                   <Download className="h-3 w-3" />
                   <span>PDF</span>
@@ -140,7 +138,6 @@ export const Certifications: React.FC = () => {
               </div>
             </div>
 
-            {/* Bottom Metadata */}
             <div className="p-3.5 bg-slate-950 text-xs">
               <div className="text-slate-200 font-bold">{cert.bulletTitle} - {cert.issuer}</div>
               <div className="text-slate-500 text-[10px] mt-0.5">{cert.issued}</div>
@@ -149,7 +146,7 @@ export const Certifications: React.FC = () => {
         ))}
       </div>
 
-      {/* Native PDF Modal Viewer */}
+      {/* Embedded Native PDF Viewer Modal */}
       {modalPdf && (
         <div
           onClick={() => setModalPdf(null)}
@@ -160,7 +157,7 @@ export const Certifications: React.FC = () => {
             className="relative max-w-4xl w-full h-[85vh] bg-slate-900 rounded-xl border border-slate-700 flex flex-col overflow-hidden shadow-2xl"
           >
             <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-800 bg-slate-950 text-xs">
-              <span className="text-emerald-400 font-semibold">Document Viewer</span>
+              <span className="text-cyan-400 font-semibold">Document Viewer</span>
               <button
                 onClick={() => setModalPdf(null)}
                 className="p-1 rounded text-slate-400 hover:text-white"
