@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Download, ExternalLink, X, FileText } from 'lucide-react';
+import { ExternalLink, X, FileText } from 'lucide-react';
 
 interface CertificateItem {
   id: string;
@@ -72,22 +72,14 @@ export const Certifications: React.FC = () => {
               Cyber Security Professional
             </div>
 
-            <div className="flex items-center gap-3 mt-6">
+            <div className="flex items-center justify-center mt-6">
               <button
                 onClick={() => setModalPdf(featured.pdfPath)}
-                className="px-4 py-1.5 rounded-lg border border-cyan-500/40 bg-cyan-950/40 text-cyan-300 text-xs hover:bg-cyan-900/40 transition-all flex items-center gap-1.5"
+                className="px-5 py-2 rounded-lg border border-cyan-500/40 bg-cyan-950/40 text-cyan-300 text-xs hover:bg-cyan-900/40 hover:border-cyan-400 transition-all flex items-center gap-2 shadow-[0_0_15px_rgba(6,182,212,0.15)]"
               >
                 <ExternalLink className="h-3.5 w-3.5" />
                 <span>Inspect PDF</span>
               </button>
-              <a
-                href={featured.pdfPath}
-                download
-                className="px-4 py-1.5 rounded-lg border border-slate-700 bg-slate-900 text-slate-300 text-xs hover:text-white hover:border-slate-500 transition-all flex items-center gap-1.5"
-              >
-                <Download className="h-3.5 w-3.5" />
-                <span>Download</span>
-              </a>
             </div>
           </div>
 
@@ -119,22 +111,14 @@ export const Certifications: React.FC = () => {
                 {cert.bulletTitle.replace('. ', '')}
               </div>
 
-              <div className="flex items-center gap-2 mt-4">
+              <div className="flex items-center justify-center mt-4">
                 <button
                   onClick={() => setModalPdf(cert.pdfPath)}
-                  className="px-3 py-1 rounded-lg border border-cyan-500/40 bg-cyan-950/40 text-cyan-300 text-[11px] hover:bg-cyan-900/40 transition-all flex items-center gap-1"
+                  className="px-4 py-1.5 rounded-lg border border-cyan-500/40 bg-cyan-950/40 text-cyan-300 text-[11px] hover:bg-cyan-900/40 hover:border-cyan-400 transition-all flex items-center gap-1.5 shadow-[0_0_12px_rgba(6,182,212,0.12)]"
                 >
                   <ExternalLink className="h-3 w-3" />
                   <span>Inspect</span>
                 </button>
-                <a
-                  href={cert.pdfPath}
-                  download
-                  className="px-3 py-1 rounded-lg border border-slate-700 bg-slate-900 text-slate-300 text-[11px] hover:text-white transition-all flex items-center gap-1"
-                >
-                  <Download className="h-3 w-3" />
-                  <span>PDF</span>
-                </a>
               </div>
             </div>
 
