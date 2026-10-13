@@ -4,31 +4,33 @@ import { Shield, Download, Menu, X } from 'lucide-react';
 export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Exact 6 links: HOME, ABOUT, SKILLS, PROJECTS, EXPERIENCE, CONTACT
   const navLinks = [
     { name: 'HOME', href: '#hero' },
     { name: 'ABOUT', href: '#about' },
     { name: 'SKILLS', href: '#resume' },
     { name: 'PROJECTS', href: '#contributions' },
     { name: 'EXPERIENCE', href: '#experience' },
+    { name: 'CONTACT', href: '#contact' },
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0B0F17]/80 backdrop-blur-md border-b border-slate-900 font-mono">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0B0F17]/85 backdrop-blur-md border-b border-slate-900 font-mono">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Left Branding */}
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 text-emerald-400 font-bold tracking-wider">
+          <a href="#hero" className="flex items-center gap-2 text-emerald-400 font-bold tracking-wider">
             <Shield className="h-5 w-5 text-emerald-400" />
             <span className="text-white text-sm sm:text-base">[AR//SEC_OPS]</span>
-          </div>
+          </a>
           <div className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
             <span>SYSTEM: NOMINAL</span>
           </div>
         </div>
 
-        {/* Desktop Links: HOME, ABOUT, SKILLS, PROJECTS, EXPERIENCE */}
-        <div className="hidden md:flex items-center gap-7 text-xs text-slate-300 font-bold tracking-wider">
+        {/* Desktop Navigation Links */}
+        <div className="hidden md:flex items-center gap-5 lg:gap-7 text-xs text-slate-300 font-bold tracking-wider">
           {navLinks.map((link) => (
             <a
               key={link.name}
@@ -52,7 +54,7 @@ export const Navbar: React.FC = () => {
           </a>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Hamburger Toggle */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="md:hidden p-2 text-slate-400 hover:text-white"
@@ -62,7 +64,7 @@ export const Navbar: React.FC = () => {
         </button>
       </div>
 
-      {/* Mobile Menu Drawer */}
+      {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
         <div className="md:hidden border-b border-slate-800 bg-[#0B0F17] px-6 py-4 space-y-3 text-xs font-bold tracking-wider">
           {navLinks.map((link) => (
