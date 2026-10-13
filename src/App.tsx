@@ -4,6 +4,7 @@ import { Hero } from './components/Hero';
 import { MetricsBar } from './components/MetricsBar';
 import { AboutJson } from './components/AboutJson';
 import { ResumeCV } from './components/ResumeCV';
+import { Experience } from './components/Experience';
 import { Certifications } from './components/Certifications';
 import { GithubMonitor } from './components/GithubMonitor';
 import { RecruitmentBanner } from './components/RecruitmentBanner';
@@ -28,6 +29,11 @@ function App() {
 
         <SectionReveal variant="primary">
           <ResumeCV />
+        </SectionReveal>
+
+        {/* Experience Target Section for #experience */}
+        <SectionReveal variant="primary">
+          <Experience />
         </SectionReveal>
 
         <Certifications />

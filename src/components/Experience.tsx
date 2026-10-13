@@ -46,7 +46,7 @@ const experiences: ExperienceItem[] = [
 
 export const Experience: React.FC = () => {
   return (
-    <section id="experience" className="px-6 py-12 max-w-7xl mx-auto font-mono">
+    <section id="experience" className="scroll-mt-20 px-6 py-12 max-w-7xl mx-auto font-mono">
       {/* Token Header */}
       <div className="flex items-center gap-2 text-xs text-emerald-400 mb-1">
         <Briefcase className="h-4 w-4" />
@@ -91,7 +91,6 @@ export const Experience: React.FC = () => {
               </div>
             </div>
 
-            {/* Bullet Points */}
             <ul className="space-y-2 mt-4 text-xs text-slate-300">
               {exp.responsibilities.map((resp, idx) => (
                 <li key={idx} className="flex items-start gap-2.5">
@@ -101,7 +100,6 @@ export const Experience: React.FC = () => {
               ))}
             </ul>
 
-            {/* Tech Badges */}
             <div className="flex flex-wrap items-center gap-2 pt-4 mt-4 border-t border-slate-800/80 text-[11px]">
               <span className="text-slate-500 font-semibold text-[10px] uppercase tracking-wider">
                 Tech &amp; Tools:
