@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ExternalLink, X, FileText } from 'lucide-react';
 
 interface CertificateItem {
@@ -55,6 +55,19 @@ const certs: CertificateItem[] = [
 
 export const Certifications: React.FC = () => {
   const [modalPdf, setModalPdf] = useState<string | null>(null);
+
+  // Close modal when pressing the Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setModalPdf(null);
+      }
+    };
+    if (modalPdf) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [modalPdf]);
 
   const featured = certs.find((c) => c.featured);
   const others = certs.filter((c) => !c.featured);
@@ -148,41 +161,75 @@ export const Certifications: React.FC = () => {
         ))}
       </div>
 
-      {/* Embedded Native PDF Viewer Modal */}
+      {/* Embedded Native PDF Viewer Modal with Robust Preview Support */}
       {modalPdf && (
         <div
           onClick={() => setModalPdf(null)}
-          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative max-w-4xl w-full h-[85vh] bg-slate-900 rounded-xl border border-slate-700 flex flex-col overflow-hidden shadow-2xl"
+            className="relative max-w-4xl w-full h-[85vh] bg-slate-900 rounded-xl border border-cyan-500/30 flex flex-col overflow-hidden shadow-[0_0_30px_rgba(6,182,212,0.2)]"
           >
-            <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-800 bg-slate-950 text-xs">
-              <span className="text-cyan-400 font-semibold">Document Viewer</span>
-              <div className="flex items-center gap-3">
+            {/* Viewer Top Bar */}
+            <div className="flex items-center justify-between px-4 py-3 border-b border-slate-800 bg-slate-950 text-xs">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                <span className="text-cyan-400 font-semibold tracking-wider uppercase">
+                  Document Viewer
+                </span>
+              </div>
+              <div className="flex items-center gap-4">
                 <a
                   href={modalPdf}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-slate-400 hover:text-cyan-300 text-[11px] underline"
+                  className="text-slate-400 hover:text-cyan-300 text-[11px] underline flex items-center gap-1 transition-colors"
                 >
-                  Open in New Tab
+                  <span>Open in New Tab</span>
+                  <ExternalLink className="h-3 w-3" />
                 </a>
                 <button
                   onClick={() => setModalPdf(null)}
-                  className="p-1 rounded text-slate-400 hover:text-white"
+                  className="p-1 rounded text-slate-400 hover:text-white transition-colors"
                   aria-label="Close modal"
                 >
                   <X className="h-4 w-4" />
                 </button>
               </div>
             </div>
-            <iframe
-              src={modalPdf}
-              title="Certificate PDF"
-              className="w-full flex-1 border-none bg-slate-950"
-            />
+
+            {/* Document Content Viewport */}
+            <div className="w-full flex-1 bg-slate-950 flex flex-col items-center justify-center relative overflow-hidden">
+              <object
+                data={`${modalPdf}#view=FitH`}
+                type="application/pdf"
+                className="w-full h-full"
+              >
+                <iframe
+                  src={`${modalPdf}#view=FitH`}
+                  title="Certificate Document Preview"
+                  className="w-full h-full border-none"
+                >
+                  {/* Fallback if browser blocks both object and iframe PDF plugins */}
+                  <div className="flex flex-col items-center justify-center h-full p-6 text-center space-y-4">
+                    <FileText className="h-12 w-12 text-slate-600" />
+                    <p className="text-xs text-slate-400 max-w-md">
+                      Your browser security settings prevented this PDF from previewing directly inside the inline frame.
+                    </p>
+                    <a
+                      href={modalPdf}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-2 rounded-lg border border-cyan-500/40 bg-cyan-950/50 text-cyan-300 text-xs hover:bg-cyan-900/50 flex items-center gap-2"
+                    >
+                      <ExternalLink className="h-3.5 w-3.5" />
+                      <span>View PDF in New Tab</span>
+                    </a>
+                  </div>
+                </iframe>
+              </object>
+            </div>
           </div>
         </div>
       )}
