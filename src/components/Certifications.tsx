@@ -22,6 +22,22 @@ const certs: CertificateItem[] = [
     featured: true,
   },
   {
+    id: 'iifis-csp',
+    bulletTitle: '. Cyber Security Professional',
+    issuer: 'International Institute for Information Security (IIFIS)',
+    category: 'Professional Tier',
+    issued: 'Issued: 2026',
+    pdfPath: '/certs/iifis-cyber-security-professional.pdf',
+  },
+  {
+    id: 'iifis-ai-csa',
+    bulletTitle: '. AI Cyber Security Associate',
+    issuer: 'International Institute for Information Security (IIFIS)',
+    category: 'AI & Offensive Security',
+    issued: 'Issued: 2026',
+    pdfPath: '/certs/iifis-ai-cyber-security-associate.pdf',
+  },
+  {
     id: 'coursera',
     bulletTitle: '. Foundations of Cybersecurity',
     issuer: 'Google',
@@ -44,7 +60,7 @@ export const Certifications: React.FC = () => {
   const others = certs.filter((c) => !c.featured);
 
   return (
-    <section id="certifications" className="px-6 py-10 max-w-7xl mx-auto font-mono">
+    <section id="certifications" className="scroll-mt-20 px-6 py-10 max-w-7xl mx-auto font-mono">
       {/* Section Header */}
       <div className="flex items-center gap-2 text-cyan-400 font-bold text-sm tracking-wider uppercase mb-5">
         <span>🛡</span>
@@ -55,7 +71,7 @@ export const Certifications: React.FC = () => {
       {featured && (
         <div className="mb-6 rounded-xl border border-cyan-500/20 bg-slate-900/60 overflow-hidden transition-all duration-300 hover:border-cyan-400">
           <div className="relative bg-slate-950/70 border-b border-slate-800 p-8 sm:p-14 flex flex-col items-center justify-center text-center group">
-            {/* Top-left Featured Badge */}
+            {/* Top-left Featured Ribbon Badge */}
             <span className="absolute top-3 left-3 bg-emerald-500 text-slate-950 font-bold text-[10px] px-2.5 py-0.5 rounded tracking-wider uppercase">
               FEATURED
             </span>
@@ -102,7 +118,7 @@ export const Certifications: React.FC = () => {
             key={cert.id}
             className="rounded-xl border border-cyan-500/20 bg-slate-900/60 overflow-hidden transition-all duration-300 hover:border-cyan-400 flex flex-col justify-between"
           >
-            <div className="bg-slate-950/70 p-10 flex flex-col items-center justify-center text-center border-b border-slate-800 group">
+            <div className="bg-slate-950/70 p-8 sm:p-10 flex flex-col items-center justify-center text-center border-b border-slate-800 group">
               <FileText className="h-10 w-10 text-slate-600 group-hover:text-cyan-400 transition-colors mb-3" />
               <div className="text-xs font-semibold text-slate-300 tracking-wide uppercase">
                 {cert.issuer}
@@ -123,7 +139,9 @@ export const Certifications: React.FC = () => {
             </div>
 
             <div className="p-3.5 bg-slate-950 text-xs">
-              <div className="text-slate-200 font-bold">{cert.bulletTitle} - {cert.issuer}</div>
+              <div className="text-slate-200 font-bold">
+                {cert.bulletTitle} - {cert.issuer}
+              </div>
               <div className="text-slate-500 text-[10px] mt-0.5">{cert.issued}</div>
             </div>
           </div>
@@ -142,12 +160,23 @@ export const Certifications: React.FC = () => {
           >
             <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-800 bg-slate-950 text-xs">
               <span className="text-cyan-400 font-semibold">Document Viewer</span>
-              <button
-                onClick={() => setModalPdf(null)}
-                className="p-1 rounded text-slate-400 hover:text-white"
-              >
-                <X className="h-4 w-4" />
-              </button>
+              <div className="flex items-center gap-3">
+                <a
+                  href={modalPdf}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-slate-400 hover:text-cyan-300 text-[11px] underline"
+                >
+                  Open in New Tab
+                </a>
+                <button
+                  onClick={() => setModalPdf(null)}
+                  className="p-1 rounded text-slate-400 hover:text-white"
+                  aria-label="Close modal"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
             </div>
             <iframe
               src={modalPdf}
