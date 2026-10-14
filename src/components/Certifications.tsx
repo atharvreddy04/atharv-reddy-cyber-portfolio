@@ -7,7 +7,8 @@ interface SingleCert {
   issuer: string;
   category?: string;
   issued: string;
-  pdfPath: string;
+  docPath: string;
+  isImage?: boolean;
   featured?: boolean;
 }
 
@@ -19,7 +20,8 @@ interface MultiCertItem {
   credentials: {
     label: string;
     sublabel: string;
-    pdfPath: string;
+    docPath: string;
+    isImage?: boolean;
   }[];
 }
 
@@ -29,11 +31,12 @@ const featuredCert: SingleCert = {
   issuer: 'NASSCOM IT-ITeS SSC',
   category: 'Gold Category',
   issued: 'Issued: July 2026',
-  pdfPath: '/certs/nasscom.pdf',
+  docPath: '/certs/nasscom.pdf',
+  isImage: false,
   featured: true,
 };
 
-// Unified single card for both IIFIS credentials
+// Single unified card for both IIFIS credentials
 const iifisCombinedCert: MultiCertItem = {
   id: 'iifis-dual',
   issuer: 'INTERNATIONAL INSTITUTE FOR INFORMATION SECURITY (IIFIS)',
@@ -43,12 +46,14 @@ const iifisCombinedCert: MultiCertItem = {
     {
       label: 'Cyber Security Professional',
       sublabel: 'Inspect CSP',
-      pdfPath: '/certs/iifis-cyber-security-professional.pdf',
+      docPath: '/certs/iifis-cyber-security-professional.pdf',
+      isImage: false,
     },
     {
       label: 'AI Cyber Security Associate',
       sublabel: 'Inspect AI CSA',
-      pdfPath: '/certs/iifis-ai-cyber-security-associate.pdf',
+      docPath: '/certs/iifis-ai-cyber-security-associate.png',
+      isImage: true,
     },
   ],
 };
@@ -59,28 +64,30 @@ const otherCerts: SingleCert[] = [
     bulletTitle: '. Foundations of Cybersecurity',
     issuer: 'Google',
     issued: 'Issued: 2025',
-    pdfPath: '/certs/coursera-cybersecurity.pdf',
+    docPath: '/certs/coursera-cybersecurity.pdf',
+    isImage: false,
   },
   {
     id: 'digit-defence',
     bulletTitle: '. Cybersecurity Internship Certificate',
     issuer: 'Digit Defence',
     issued: 'Issued: July 2026',
-    pdfPath: '/certs/digit-defence.pdf',
+    docPath: '/certs/digit-defence.pdf',
+    isImage: false,
   },
 ];
 
 export const Certifications: React.FC = () => {
-  const [modalPdf, setModalPdf] = useState<string | null>(null);
+  const [modalItem, setModalItem] = useState<{ docPath: string; isImage?: boolean } | null>(null);
 
-  // Close modal when pressing the Escape key
+  // Close modal when pressing Escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setModalPdf(null);
+      if (e.key === 'Escape') setModalItem(null);
     };
-    if (modalPdf) window.addEventListener('keydown', handleKeyDown);
+    if (modalItem) window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [modalPdf]);
+  }, [modalItem]);
 
   return (
     <section id="certifications" className="scroll-mt-20 px-6 py-10 max-w-7xl mx-auto font-mono">
@@ -111,7 +118,7 @@ export const Certifications: React.FC = () => {
 
           <div className="flex items-center justify-center mt-6">
             <button
-              onClick={() => setModalPdf(featuredCert.pdfPath)}
+              onClick={() => setModalItem({ docPath: featuredCert.docPath, isImage: false })}
               className="px-5 py-2 rounded-lg border border-cyan-500/40 bg-cyan-950/40 text-cyan-300 text-xs hover:bg-cyan-900/40 hover:border-cyan-400 transition-all flex items-center gap-2 shadow-[0_0_15px_rgba(6,182,212,0.15)]"
             >
               <ExternalLink className="h-3.5 w-3.5" />
@@ -146,7 +153,7 @@ export const Certifications: React.FC = () => {
               {iifisCombinedCert.credentials.map((cred) => (
                 <button
                   key={cred.label}
-                  onClick={() => setModalPdf(cred.pdfPath)}
+                  onClick={() => setModalItem({ docPath: cred.docPath, isImage: cred.isImage })}
                   className="px-3 py-1.5 rounded-lg border border-cyan-500/40 bg-cyan-950/40 text-cyan-300 text-[11px] hover:bg-cyan-900/40 hover:border-cyan-400 transition-all flex items-center gap-1.5 shadow-[0_0_12px_rgba(6,182,212,0.12)]"
                 >
                   <ExternalLink className="h-3 w-3" />
@@ -167,7 +174,7 @@ export const Certifications: React.FC = () => {
           </div>
         </div>
 
-        {/* Other Secondary Certificates */}
+        {/* Other Certificates */}
         {otherCerts.map((cert) => (
           <div
             key={cert.id}
@@ -184,7 +191,7 @@ export const Certifications: React.FC = () => {
 
               <div className="flex items-center justify-center mt-5">
                 <button
-                  onClick={() => setModalPdf(cert.pdfPath)}
+                  onClick={() => setModalItem({ docPath: cert.docPath, isImage: false })}
                   className="px-4 py-1.5 rounded-lg border border-cyan-500/40 bg-cyan-950/40 text-cyan-300 text-[11px] hover:bg-cyan-900/40 hover:border-cyan-400 transition-all flex items-center gap-1.5 shadow-[0_0_12px_rgba(6,182,212,0.12)]"
                 >
                   <ExternalLink className="h-3 w-3" />
@@ -203,10 +210,10 @@ export const Certifications: React.FC = () => {
         ))}
       </div>
 
-      {/* Embedded Native PDF Viewer Modal */}
-      {modalPdf && (
+      {/* Embedded Document Viewer Modal */}
+      {modalItem && (
         <div
-          onClick={() => setModalPdf(null)}
+          onClick={() => setModalItem(null)}
           className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6"
         >
           <div
@@ -223,7 +230,7 @@ export const Certifications: React.FC = () => {
               </div>
               <div className="flex items-center gap-4">
                 <a
-                  href={modalPdf}
+                  href={modalItem.docPath}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-slate-400 hover:text-cyan-300 text-[11px] underline flex items-center gap-1 transition-colors"
@@ -232,7 +239,7 @@ export const Certifications: React.FC = () => {
                   <ExternalLink className="h-3 w-3" />
                 </a>
                 <button
-                  onClick={() => setModalPdf(null)}
+                  onClick={() => setModalItem(null)}
                   className="p-1 rounded text-slate-400 hover:text-white transition-colors"
                   aria-label="Close modal"
                 >
@@ -242,18 +249,26 @@ export const Certifications: React.FC = () => {
             </div>
 
             {/* Document Content Viewport */}
-            <div className="w-full flex-1 bg-slate-950 flex flex-col items-center justify-center relative overflow-hidden">
-              <object
-                data={`${modalPdf}#view=FitH`}
-                type="application/pdf"
-                className="w-full h-full"
-              >
-                <iframe
-                  src={`${modalPdf}#view=FitH`}
-                  title="Certificate Document Preview"
-                  className="w-full h-full border-none"
+            <div className="w-full flex-1 bg-slate-950 flex flex-col items-center justify-center relative overflow-auto p-4">
+              {modalItem.isImage ? (
+                <img
+                  src={modalItem.docPath}
+                  alt="Certificate Document"
+                  className="max-h-full max-w-full object-contain rounded border border-slate-800 shadow-xl"
                 />
-              </object>
+              ) : (
+                <object
+                  data={`${modalItem.docPath}#view=FitH`}
+                  type="application/pdf"
+                  className="w-full h-full"
+                >
+                  <iframe
+                    src={`${modalItem.docPath}#view=FitH`}
+                    title="Certificate Document Preview"
+                    className="w-full h-full border-none"
+                  />
+                </object>
+              )}
             </div>
           </div>
         </div>
