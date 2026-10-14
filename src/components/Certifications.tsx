@@ -7,7 +7,7 @@ interface SingleCert {
   issuer: string;
   category?: string;
   issued: string;
-  docPath: string;
+  pdfPath: string;
   featured?: boolean;
 }
 
@@ -19,7 +19,7 @@ interface MultiCertItem {
   credentials: {
     label: string;
     sublabel: string;
-    docPath: string;
+    pdfPath: string;
   }[];
 }
 
@@ -29,7 +29,7 @@ const featuredCert: SingleCert = {
   issuer: 'NASSCOM IT-ITeS SSC',
   category: 'Gold Category',
   issued: 'Issued: July 2026',
-  docPath: '/certs/nasscom.pdf',
+  pdfPath: '/certs/nasscom.pdf',
   featured: true,
 };
 
@@ -43,12 +43,12 @@ const iifisCombinedCert: MultiCertItem = {
     {
       label: 'Cyber Security Professional',
       sublabel: 'Inspect CSP',
-      docPath: '/certs/iifis-cyber-security-professional.pdf',
+      pdfPath: '/certs/iifis-cyber-security-professional.pdf',
     },
     {
       label: 'AI Cyber Security Associate',
       sublabel: 'Inspect AI CSA',
-      docPath: '/certs/iifis-ai-cyber-security-associate.pdf',
+      pdfPath: '/certs/iifis-ai-cyber-security-associate.pdf',
     },
   ],
 };
@@ -59,33 +59,28 @@ const otherCerts: SingleCert[] = [
     bulletTitle: '. Foundations of Cybersecurity',
     issuer: 'Google',
     issued: 'Issued: 2025',
-    docPath: '/certs/coursera-cybersecurity.pdf',
+    pdfPath: '/certs/coursera-cybersecurity.pdf',
   },
   {
     id: 'digit-defence',
     bulletTitle: '. Cybersecurity Internship Certificate',
     issuer: 'Digit Defence',
     issued: 'Issued: July 2026',
-    docPath: '/certs/digit-defence.pdf',
+    pdfPath: '/certs/digit-defence.pdf',
   },
 ];
 
 export const Certifications: React.FC = () => {
-  const [modalDoc, setModalDoc] = useState<string | null>(null);
+  const [modalPdf, setModalPdf] = useState<string | null>(null);
 
-  // Close modal on Escape key press
+  // Close modal when pressing the Escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setModalDoc(null);
+      if (e.key === 'Escape') setModalPdf(null);
     };
-    if (modalDoc) window.addEventListener('keydown', handleKeyDown);
+    if (modalPdf) window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [modalDoc]);
-
-  const isImageFile = (path: string) => {
-    const cleanPath = path.toLowerCase().split('?')[0];
-    return cleanPath.endsWith('.png') || cleanPath.endsWith('.jpg') || cleanPath.endsWith('.jpeg') || cleanPath.endsWith('.webp');
-  };
+  }, [modalPdf]);
 
   return (
     <section id="certifications" className="scroll-mt-20 px-6 py-10 max-w-7xl mx-auto font-mono">
@@ -116,7 +111,7 @@ export const Certifications: React.FC = () => {
 
           <div className="flex items-center justify-center mt-6">
             <button
-              onClick={() => setModalDoc(featuredCert.docPath)}
+              onClick={() => setModalPdf(featuredCert.pdfPath)}
               className="px-5 py-2 rounded-lg border border-cyan-500/40 bg-cyan-950/40 text-cyan-300 text-xs hover:bg-cyan-900/40 hover:border-cyan-400 transition-all flex items-center gap-2 shadow-[0_0_15px_rgba(6,182,212,0.15)]"
             >
               <ExternalLink className="h-3.5 w-3.5" />
@@ -151,7 +146,7 @@ export const Certifications: React.FC = () => {
               {iifisCombinedCert.credentials.map((cred) => (
                 <button
                   key={cred.label}
-                  onClick={() => setModalDoc(cred.docPath)}
+                  onClick={() => setModalPdf(cred.pdfPath)}
                   className="px-3 py-1.5 rounded-lg border border-cyan-500/40 bg-cyan-950/40 text-cyan-300 text-[11px] hover:bg-cyan-900/40 hover:border-cyan-400 transition-all flex items-center gap-1.5 shadow-[0_0_12px_rgba(6,182,212,0.12)]"
                 >
                   <ExternalLink className="h-3 w-3" />
@@ -189,7 +184,7 @@ export const Certifications: React.FC = () => {
 
               <div className="flex items-center justify-center mt-5">
                 <button
-                  onClick={() => setModalDoc(cert.docPath)}
+                  onClick={() => setModalPdf(cert.pdfPath)}
                   className="px-4 py-1.5 rounded-lg border border-cyan-500/40 bg-cyan-950/40 text-cyan-300 text-[11px] hover:bg-cyan-900/40 hover:border-cyan-400 transition-all flex items-center gap-1.5 shadow-[0_0_12px_rgba(6,182,212,0.12)]"
                 >
                   <ExternalLink className="h-3 w-3" />
@@ -208,10 +203,10 @@ export const Certifications: React.FC = () => {
         ))}
       </div>
 
-      {/* Embedded Modal Document Viewer (PDF or Image) */}
-      {modalDoc && (
+      {/* Embedded Native PDF Viewer Modal */}
+      {modalPdf && (
         <div
-          onClick={() => setModalDoc(null)}
+          onClick={() => setModalPdf(null)}
           className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6"
         >
           <div
@@ -228,7 +223,7 @@ export const Certifications: React.FC = () => {
               </div>
               <div className="flex items-center gap-4">
                 <a
-                  href={modalDoc}
+                  href={modalPdf}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-slate-400 hover:text-cyan-300 text-[11px] underline flex items-center gap-1 transition-colors"
@@ -237,7 +232,7 @@ export const Certifications: React.FC = () => {
                   <ExternalLink className="h-3 w-3" />
                 </a>
                 <button
-                  onClick={() => setModalDoc(null)}
+                  onClick={() => setModalPdf(null)}
                   className="p-1 rounded text-slate-400 hover:text-white transition-colors"
                   aria-label="Close modal"
                 >
@@ -247,42 +242,18 @@ export const Certifications: React.FC = () => {
             </div>
 
             {/* Document Content Viewport */}
-            <div className="w-full flex-1 bg-slate-950 flex flex-col items-center justify-center relative overflow-auto p-2">
-              {isImageFile(modalDoc) ? (
-                <img
-                  src={modalDoc}
-                  alt="Certificate Document"
-                  className="max-h-full max-w-full object-contain rounded border border-slate-800 shadow-md"
+            <div className="w-full flex-1 bg-slate-950 flex flex-col items-center justify-center relative overflow-hidden">
+              <object
+                data={`${modalPdf}#view=FitH`}
+                type="application/pdf"
+                className="w-full h-full"
+              >
+                <iframe
+                  src={`${modalPdf}#view=FitH`}
+                  title="Certificate Document Preview"
+                  className="w-full h-full border-none"
                 />
-              ) : (
-                <object
-                  data={`${modalDoc}#view=FitH`}
-                  type="application/pdf"
-                  className="w-full h-full"
-                >
-                  <iframe
-                    src={`${modalDoc}#view=FitH`}
-                    title="Certificate Document Preview"
-                    className="w-full h-full border-none"
-                  >
-                    <div className="flex flex-col items-center justify-center h-full p-6 text-center space-y-4">
-                      <FileText className="h-12 w-12 text-slate-600" />
-                      <p className="text-xs text-slate-400 max-w-md">
-                        Your browser security settings prevented this PDF from previewing directly inline.
-                      </p>
-                      <a
-                        href={modalDoc}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-4 py-2 rounded-lg border border-cyan-500/40 bg-cyan-950/50 text-cyan-300 text-xs hover:bg-cyan-900/50 flex items-center gap-2"
-                      >
-                        <ExternalLink className="h-3.5 w-3.5" />
-                        <span>View Document in New Tab</span>
-                      </a>
-                    </div>
-                  </iframe>
-                </object>
-              )}
+              </object>
             </div>
           </div>
         </div>
