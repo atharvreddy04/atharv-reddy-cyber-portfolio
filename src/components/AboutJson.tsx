@@ -1,65 +1,71 @@
 import React from 'react';
-import { MapPin, GraduationCap, Crosshair } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 
 export const AboutJson: React.FC = () => {
-  const profileJson = {
-    name: "Poondru Atharv Reddy",
-    role: "Cybersecurity Analyst & VAPT Specialist",
-    education: "B.Sc. in Computer Science - Osmania University",
-    vulnerabilities_reported: "OWASP Top 10 Verified",
-    labs_completed: "PortSwigger & DVWA",
-    specialties: [
-      "Web Application Pentesting",
-      "Vulnerability Assessment & VAPT",
-      "OWASP Top 10 Auditing",
-      "Network Packet Analysis (Wireshark)"
-    ],
-    certifications: [
-      "NASSCOM Certified Cyber Security Professional",
-      "Google Foundations of Cybersecurity",
-      "Digit Defence Cybersecurity Internship"
-    ],
-    status: "Open to security opportunities",
-    available_immediately: true
-  };
-
   return (
-    <section id="about" className="px-6 py-12 max-w-7xl mx-auto font-mono">
-      {/* Token Header */}
-      <h2 className="text-xl sm:text-2xl font-bold text-cyan-400 tracking-wider mb-6">
-        // ABOUT_ME
-      </h2>
-
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Left Column: Narrative & Key Attribute Items */}
-        <div className="lg:col-span-6 space-y-6 text-xs sm:text-sm text-slate-300">
-          <p className="leading-relaxed">
-            I focus on Web Application Security and Vulnerability Assessment. My experience includes auditing attack surfaces, completing hands-on PortSwigger Web Security Academy labs, verifying OWASP Top 10 vulnerabilities with Burp Suite and OpenVAS, developing reproducible PoC scripts, and gaining practical offensive-defensive knowledge through internships.
-          </p>
-
-          <div className="space-y-3 pt-2 text-xs">
-            <div className="flex items-center gap-3 text-slate-300">
-              <MapPin className="h-4 w-4 text-cyan-400 shrink-0" />
-              <span>Hyderabad, Telangana, India</span>
+    <section id="about" className="scroll-mt-20 px-6 py-10 max-w-7xl mx-auto font-mono">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        {/* [02_ACADEMICS] Card */}
+        <div className="rounded-xl border border-cyan-500/30 bg-[#0d1117] p-6 shadow-[0_0_20px_rgba(6,182,212,0.08)] flex flex-col justify-between">
+          <div>
+            <div className="text-cyan-400 font-bold text-xs tracking-wider uppercase mb-3">
+              [02_ACADEMICS]
             </div>
-            <div className="flex items-center gap-3 text-slate-300">
-              <GraduationCap className="h-4 w-4 text-cyan-400 shrink-0" />
-              <span>B.Sc. in Computer Science &mdash; Osmania University</span>
+
+            <h3 className="text-xl font-bold text-white tracking-wide mb-2">
+              B.Sc. in Computer Science
+            </h3>
+
+            <div className="text-xs text-slate-300 space-y-1">
+              <p className="text-slate-200">Keshav Memorial Institute of Commerce & Sciences</p>
+              <p className="text-slate-400">Osmania University — Hyderabad</p>
             </div>
-            <div className="flex items-center gap-3 text-slate-300">
-              <Crosshair className="h-4 w-4 text-cyan-400 shrink-0" />
-              <span>Web Pentesting &bull; SQL Injection &amp; XSS &bull; Business Logic Audits</span>
+          </div>
+
+          {/* Clean text footer without the highlighted rectangular box */}
+          <div className="flex items-center justify-between text-xs mt-6 pt-3">
+            <span className="text-slate-400">2023 — Expected 2026</span>
+            <span className="text-emerald-400 font-semibold">Coursework Completed</span>
+          </div>
+        </div>
+
+        {/* [06_HANDS_ON_LABS] Card */}
+        <div className="rounded-xl border border-cyan-500/30 bg-[#0d1117] p-6 shadow-[0_0_20px_rgba(6,182,212,0.08)] flex flex-col justify-between">
+          <div className="space-y-4">
+            <div className="text-cyan-400 font-bold text-xs tracking-wider uppercase">
+              [06_HANDS_ON_LABS]
+            </div>
+
+            <div>
+              <h4 className="text-sm font-bold text-white">PortSwigger &amp; DVWA Labs</h4>
+              <p className="text-xs text-slate-400 mt-1">
+                SQLi, XSS, CSRF, and Broken Access Control bypass validation.
+              </p>
+            </div>
+
+            <div>
+              <h4 className="text-sm font-bold text-white">
+                Host Reconnaissance &amp; Traffic Analysis
+              </h4>
+              <p className="text-xs text-slate-400 mt-1">
+                Nmap NSE automated discovery and packet anomaly inspection in Wireshark.
+              </p>
+            </div>
+          </div>
+
+          {/* Clean text footer without the highlighted rectangular box */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs mt-6 pt-3">
+            <div className="flex items-center gap-2 text-emerald-400 font-medium">
+              <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span>Cyber Security Internship Certificate</span>
+            </div>
+            <div className="text-slate-400 text-[11px] sm:text-xs">
+              Digit Defence • ID: DF202712438 (Issued Jul. 2026)
             </div>
           </div>
         </div>
 
-        {/* Right Column: $ cat profile.json Code Box */}
-        <div className="lg:col-span-6 rounded-xl border border-cyan-500/20 bg-slate-900/60 p-5 backdrop-blur-md">
-          <div className="text-xs text-slate-400 mb-3">$ cat profile.json</div>
-          <pre className="text-xs font-mono text-cyan-300 overflow-x-auto leading-relaxed whitespace-pre bg-slate-950/70 p-4 rounded-lg border border-slate-800">
-{JSON.stringify(profileJson, null, 2)}
-          </pre>
-        </div>
       </div>
     </section>
   );
