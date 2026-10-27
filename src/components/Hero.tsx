@@ -66,9 +66,6 @@ export const Hero: React.FC = () => {
       id="home" 
       className="relative min-h-[90vh] flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 lg:px-8 font-mono text-center overflow-hidden bg-[#040911]"
     >
-      {/* Background Cyber Blueprint Grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#00e5ff0f_1px,transparent_1px),linear-gradient(to_bottom,#00e5ff0f_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
-
       {/* Cyan Ambient Radial Glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[340px] bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none" />
 
@@ -109,7 +106,7 @@ export const Hero: React.FC = () => {
           <span>Network Packet Analysis</span>
         </motion.div>
 
-        {/* 4 Feature Cards with Original Border & Background Boxes */}
+        {/* 4 Feature Cards */}
         <motion.div
           variants={cardListVariants}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 w-full max-w-5xl mb-10"
