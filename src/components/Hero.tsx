@@ -34,7 +34,7 @@ export const Hero: React.FC = () => {
     },
   };
 
-  const statListVariants = {
+  const cardListVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -45,8 +45,8 @@ export const Hero: React.FC = () => {
     },
   };
 
-  const statItemVariants = {
-    hidden: { opacity: 0, y: prefersReduced ? 0 : 12 },
+  const cardItemVariants = {
+    hidden: { opacity: 0, y: prefersReduced ? 0 : 14 },
     visible: {
       opacity: 1,
       y: 0,
@@ -54,7 +54,7 @@ export const Hero: React.FC = () => {
     },
   };
 
-  const stats = [
+  const cards = [
     { title: 'PortSwigger & DVWA', subtitle: 'Practical Web Security Labs' },
     { title: 'Digit Defence', subtitle: 'Cybersecurity Intern' },
     { title: 'Net Secure & Tools', subtitle: 'Traffic DPI & Security PoCs' },
@@ -109,24 +109,25 @@ export const Hero: React.FC = () => {
           <span>Network Packet Analysis</span>
         </motion.div>
 
-        {/* 4 Feature Stats (Clean - No Background Boxes) */}
+        {/* 4 Feature Cards with Original Border & Background Boxes */}
         <motion.div
-          variants={statListVariants}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-5xl mb-12"
+          variants={cardListVariants}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 w-full max-w-5xl mb-10"
         >
-          {stats.map((item, i) => (
+          {cards.map((card, i) => (
             <motion.div
               key={i}
-              variants={statItemVariants}
-              className="flex items-center justify-center sm:justify-start gap-2.5 text-left py-1"
+              variants={cardItemVariants}
+              whileHover={{ y: -3, transition: { duration: 0.2 } }}
+              className="flex items-center gap-3 p-3.5 rounded-lg border border-cyan-800/40 bg-[#06121e]/75 shadow-[0_0_15px_rgba(6,182,212,0.08)] text-left hover:border-cyan-500/50 hover:bg-[#081726] transition-all"
             >
               <Check className="w-4 h-4 text-cyan-400 shrink-0 stroke-[2.5]" />
               <div className="flex flex-col">
-                <span className="text-xs sm:text-sm font-bold text-slate-200 tracking-tight">
-                  {item.title}
+                <span className="text-xs sm:text-sm font-bold text-slate-100 tracking-tight">
+                  {card.title}
                 </span>
                 <span className="text-[11px] text-slate-400">
-                  {item.subtitle}
+                  {card.subtitle}
                 </span>
               </div>
             </motion.div>
