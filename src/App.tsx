@@ -11,11 +11,11 @@ import { RecruitmentBanner } from './components/RecruitmentBanner';
 import { Contact } from './components/Contact';
 import { SectionReveal } from './components/SectionReveal';
 
-function App() {
+export default function App() {
   return (
     <div className="min-h-screen bg-[#0B0F17] text-slate-100 selection:bg-cyan-500 selection:text-slate-950">
       <Navbar />
-      
+
       <main className="space-y-4">
         <Hero />
 
@@ -23,40 +23,18 @@ function App() {
           <MetricsBar />
         </SectionReveal>
 
-        <SectionReveal variant="primary">
-          <AboutJson />
-        </SectionReveal>
-
-        <SectionReveal variant="primary">
-          <ResumeCV />
-        </SectionReveal>
-
-        {/* Experience Target Section for #experience */}
-        <SectionReveal variant="primary">
+        <SectionReveal>
           <Experience />
         </SectionReveal>
 
-        <Certifications />
-
-        <SectionReveal variant="secondary">
-          <GithubMonitor />
+        <SectionReveal>
+          <Certifications />
         </SectionReveal>
 
-        <SectionReveal variant="primary">
-          <RecruitmentBanner />
-        </SectionReveal>
-
-        <SectionReveal variant="primary">
+        <SectionReveal>
           <Contact />
         </SectionReveal>
       </main>
-
-      <footer className="py-8 text-center text-xs font-mono text-slate-600 border-t border-slate-900">
-        &copy; {new Date().getFullYear()} POONDRU ATHARV REDDY. All systems secured.
-      </footer>
     </div>
   );
 }
-
-export default App;
-
