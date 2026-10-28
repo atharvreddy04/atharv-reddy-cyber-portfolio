@@ -1,105 +1,116 @@
 import React, { useState } from 'react';
-import { ShieldCheck, Copy, ExternalLink, Download, Check } from 'lucide-react';
+import { Download, ExternalLink, Copy, Check, ShieldCheck } from 'lucide-react';
 
 export const ResumeCV: React.FC = () => {
   const [copied, setCopied] = useState(false);
 
-  const handleCopyPlaintext = () => {
-    const text = `POONDRU ATHARV REDDY - CYBERSECURITY RESUME
-Role: Cybersecurity Analyst & VAPT Specialist
-Location: Hyderabad, Telangana, India
-Education: B.Sc. in Computer Science - Osmania University (Expected 2026)
+  const handleCopy = () => {
+    const resumeText = `
+POONDRU ATHARV REDDY
+Cybersecurity Specialist | VAPT | SOC Operations (L1/L2) | OWASP Top 10
+Hyderabad, Telangana, India
+LinkedIn: https://www.linkedin.com/in/atharv-reddy-44511b282/
 
-EXPERIENCE:
-Cybersecurity Intern - Digit Defence (Jan 2026 - Jul 2026)
-- Conducted vulnerability assessments and web security testing using Burp Suite & OpenVAS targeting OWASP Top 10.
+[01_EXECUTIVE_SUMMARY]
+Aspiring Cybersecurity professional with hands-on experience in vulnerability assessment, web application security, and penetration testing. Skilled in evaluating attack surfaces, validating OWASP Top 10 vulnerabilities with Burp Suite, OpenVAS, and Nmap; engineering reproducible PoC exploits; and formulating actionable remediation guidance.
+
+[02_ACADEMICS]
+B.Sc. in Computer Science - Keshav Memorial Institute of Commerce & Sciences (Osmania University, Hyderabad)
+
+[03_FIELD_EXPERIENCE]
+Cybersecurity Intern - Digit Defence (Remote) | Jan 2026 – Jul 2026 [Doc ID: DF260727438]
+- Conducted vulnerability assessments and web security testing using Burp Suite & OpenVAS targeting OWASP Top 10 vulnerabilities.
 - Engineered Proof of Concept (PoC) exploits validating live target security flaws.
 - Analyzed network attack surfaces and traffic anomalies using Nmap and Wireshark.
 - Formulated actionable technical remediation reports with patch strategies.
 
-CORE SKILLS & TOOLSET:
-- Tools: Burp Suite, OpenVAS, Nmap, Wireshark, Kali Linux
-- Protocols: TCP/IP, DNS, HTTP/HTTPS, OSI Model, Packet Analysis
-- Programming: Python, Java, C++, Bash/Shell Scripting`;
+[04_SECURITY_TOOLSET]
+- Assessment & Frameworks: Burp Suite, OpenVAS, Nmap, Wireshark, Kali Linux, Metasploit
+- Networking & Protocols: TCP/IP, DNS, HTTP/HTTPS, OSI Model, Packet Analysis
+- Programming & Scripting: Python, Java, C++, Bash/Shell Scripting, React, TypeScript
 
-    navigator.clipboard.writeText(text);
+[05_KEY_PROJECTS]
+1. NetSecure: Network Packet Analyzer & Security Dashboard (React, Tailwind CSS, Vite)
+2. Phishing URL Detection Tool (Python, Heuristics, Regex)
+3. Secure Folder Encryptor (Java, AES-256-CBC, PBKDF2)
+
+[06_HANDS_ON_LABS & CERTIFICATIONS]
+- PortSwigger & DVWA Labs: SQLi, XSS, CSRF, and Broken Access Control bypass validation.
+- Host Reconnaissance & Traffic Analysis: Nmap NSE automated discovery and packet anomaly inspection.
+- IIFIS Certified Cyber Security Professional
+- NASSCOM Certified Cyber Security Professional
+- Cyber Security Internship Experience Certificate (Digit Defence: DF260727438)
+    `.trim();
+
+    navigator.clipboard.writeText(resumeText);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <section id="resume" className="px-6 py-12 max-w-7xl mx-auto font-mono">
-      {/* Top Header & Action Controls */}
+    <section id="about" className="max-w-6xl mx-auto px-4 py-16 font-mono">
+      {/* Top Credentials Action Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
-          <div className="flex items-center gap-2 text-xs text-emerald-400 font-semibold mb-1">
-            <ShieldCheck className="h-4 w-4" />
-            <span>VERIFIED SECURITY CREDENTIALS</span>
+          <div className="flex items-center gap-2 text-cyan-400 text-xs font-bold tracking-widest uppercase">
+            <ShieldCheck className="w-4 h-4 text-cyan-400" />
+            <span>Verified Security Credentials</span>
           </div>
-          <h2 className="text-3xl font-black text-white tracking-wide">
-            Professional Resume
-          </h2>
-          <p className="text-xs text-slate-400 mt-1">
+          <h2 className="text-3xl font-extrabold text-white mt-1">Professional Resume</h2>
+          <p className="text-xs text-slate-400 mt-1 font-sans">
             Interactive 3D spatial cards with official PDF downloads.
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2.5 text-xs">
+        <div className="flex flex-wrap items-center gap-3">
           <button
-            onClick={handleCopyPlaintext}
-            className="px-3.5 py-2 rounded-lg border border-slate-800 bg-slate-900/80 text-slate-300 hover:text-white hover:border-slate-700 transition-all flex items-center gap-1.5"
+            onClick={handleCopy}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900/60 text-xs text-slate-300 hover:border-slate-500 hover:text-white transition-colors cursor-pointer"
           >
-            {copied ? (
-              <>
-                <Check className="h-3.5 w-3.5 text-emerald-400" />
-                <span className="text-emerald-400">Copied to Clipboard</span>
-              </>
-            ) : (
-              <>
-                <Copy className="h-3.5 w-3.5 text-slate-400" />
-                <span>Copy Plaintext Resume</span>
-              </>
-            )}
+            {copied ? <Check className="w-3.5 h-3.5 text-cyan-400" /> : <Copy className="w-3.5 h-3.5" />}
+            <span>{copied ? 'Copied' : 'Copy Plaintext Resume'}</span>
           </button>
 
           <a
             href="/resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-3.5 py-2 rounded-lg border border-cyan-500/40 bg-cyan-950/30 text-cyan-300 hover:bg-cyan-900/40 hover:border-cyan-400 transition-all flex items-center gap-1.5"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-cyan-800 bg-cyan-950/40 text-xs text-cyan-400 hover:bg-cyan-900/40 transition-colors cursor-pointer"
           >
-            <ExternalLink className="h-3.5 w-3.5" />
+            <ExternalLink className="w-3.5 h-3.5" />
             <span>View PDF</span>
           </a>
 
           <a
             href="/resume.pdf"
-            download="Poondru_Atharv_Reddy_Resume.pdf"
-            className="px-3.5 py-2 rounded-lg border border-emerald-500/40 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20 hover:border-emerald-400 transition-all flex items-center gap-1.5"
+            download="Atharv_Reddy_Resume.pdf"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-emerald-500/20 border border-emerald-500/50 text-xs text-emerald-400 hover:bg-emerald-500/30 transition-colors font-semibold cursor-pointer"
           >
-            <Download className="h-3.5 w-3.5" />
+            <Download className="w-3.5 h-3.5" />
             <span>Download Resume</span>
           </a>
         </div>
       </div>
 
-      {/* 2-Column Grid Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Left Column (Cards 01, 03, 05) */}
-        <div className="lg:col-span-7 space-y-6">
+      {/* Resume Cards Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        {/* Left Column (Span 6) */}
+        <div className="lg:col-span-6 space-y-6">
+          
           {/* [01_EXECUTIVE_SUMMARY] */}
-          <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-6 backdrop-blur-md">
-            <div className="text-xs text-cyan-400 font-bold mb-3 tracking-wider">
+          <div className="p-6 rounded-xl border border-slate-800 bg-[#070e17]/80 backdrop-blur shadow-sm">
+            <span className="text-cyan-400 text-xs font-bold tracking-wider block mb-3">
               [01_EXECUTIVE_SUMMARY]
-            </div>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-5">
+            </span>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
               Aspiring Cybersecurity professional with hands-on experience in vulnerability assessment, web application security, and penetration testing. Skilled in evaluating attack surfaces, validating OWASP Top 10 vulnerabilities with Burp Suite, OpenVAS, and Nmap; engineering reproducible PoC exploits; and formulating actionable remediation guidance.
             </p>
-            <div className="flex flex-wrap gap-2 text-[11px]">
+            <div className="flex flex-wrap gap-2 mt-5">
               {['VAPT', 'Web AppSec', 'OWASP Top 10', 'PoC Exploits', 'Remediation Roadmaps'].map((tag) => (
                 <span
                   key={tag}
-                  className="px-2.5 py-1 rounded border border-slate-800 bg-slate-950/80 text-slate-400"
+                  className="text-[10px] px-2.5 py-1 rounded border border-slate-800 bg-[#0B0F17] text-slate-400"
                 >
                   {tag}
                 </span>
@@ -108,150 +119,135 @@ CORE SKILLS & TOOLSET:
           </div>
 
           {/* [03_FIELD_EXPERIENCE] */}
-          <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-6 backdrop-blur-md">
-            <div className="flex items-center justify-between text-xs mb-2">
-              <span className="text-cyan-400 font-bold tracking-wider">[03_FIELD_EXPERIENCE]</span>
-              <span className="text-cyan-400 font-semibold text-[11px]">Jan 2026 – Jul 2026</span>
+          <div id="experience" className="p-6 rounded-xl border border-slate-800 bg-[#070e17]/80 backdrop-blur shadow-sm">
+            <div className="flex justify-between items-center mb-3">
+              <span className="text-cyan-400 text-xs font-bold tracking-wider">[03_FIELD_EXPERIENCE]</span>
+              <span className="text-xs text-slate-400">Jan 2026 – Jul 2026</span>
             </div>
-
-            <div className="inline-block bg-cyan-400 text-slate-950 font-bold text-xs px-2 py-0.5 rounded mb-1">
+            <div className="inline-block px-2.5 py-0.5 rounded bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 text-xs font-bold mb-1">
               Cybersecurity Intern
             </div>
-            <div className="text-xs text-slate-400 mb-4">
-              Digit Defence — Bengaluru (Remote)
+            <div className="text-xs text-slate-400 mb-3">
+              Digit Defence &bull; Bengaluru (Remote) &bull; ID: DF260727438
             </div>
-
-            <ul className="space-y-2 text-xs text-slate-300 list-disc list-inside">
-              <li>
-                Conducted vulnerability assessments and web security testing using Burp Suite &amp; OpenVAS targeting OWASP Top 10 vulnerabilities.
-              </li>
-              <li>
-                Engineered Proof of Concept (PoC) exploits validating live target security flaws.
-              </li>
-              <li>
-                Analyzed network attack surfaces and traffic anomalies using Nmap and Wireshark.
-              </li>
-              <li>
-                Formulated actionable technical remediation reports with patch strategies.
-              </li>
+            <ul className="text-xs text-slate-300 space-y-2 list-disc list-inside font-sans leading-relaxed">
+              <li>Conducted vulnerability assessments and web security testing using Burp Suite &amp; OpenVAS targeting OWASP Top 10 vulnerabilities.</li>
+              <li>Engineered Proof of Concept (PoC) exploits validating live target security flaws.</li>
+              <li>Analyzed network attack surfaces and traffic anomalies using Nmap and Wireshark.</li>
+              <li>Formulated actionable technical remediation reports with patch strategies.</li>
             </ul>
           </div>
 
           {/* [05_KEY_PROJECTS] */}
-          <div className="rounded-xl border border-cyan-500/40 bg-slate-900/50 p-6 backdrop-blur-md shadow-[0_0_20px_rgba(6,182,212,0.15)]">
-            <div className="text-xs text-cyan-400 font-bold mb-4 tracking-wider">
-              [05_KEY_PROJECTS]
+          <div id="projects" className="p-6 rounded-xl border border-cyan-800/60 bg-[#070e17]/90 backdrop-blur space-y-4 shadow-sm">
+            <span className="text-cyan-400 text-xs font-bold tracking-wider block">[05_KEY_PROJECTS]</span>
+            
+            {/* Project 1: NetSecure */}
+            <div className="p-4 rounded-lg border border-slate-800 bg-[#0B0F17]/90 hover:border-cyan-500/50 transition-colors">
+              <div className="flex justify-between items-start">
+                <span className="text-sm font-bold text-white">NetSecure Analyzer</span>
+                <span className="text-[11px] text-cyan-400">React / Vite / Tailwind</span>
+              </div>
+              <p className="text-xs text-slate-300 mt-2 font-sans leading-relaxed">
+                Network traffic inspection dashboard featuring real-time stream simulation, packet distribution analytics, and automated security rule alerts.
+              </p>
             </div>
 
-            <div className="space-y-4">
-              {/* Project 1 */}
-              <div className="rounded-lg border border-slate-800 bg-slate-950/80 p-4">
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-sm font-bold text-white">Phishing URL Detection Tool</span>
-                  <span className="text-[11px] text-cyan-400">Python / Regex</span>
-                </div>
-                <p className="text-xs text-slate-400 leading-relaxed">
-                  Heuristic entropy script with redirection auditing to identify typosquatting vectors.
-                </p>
+            {/* Project 2: Phishing Detection */}
+            <div className="p-4 rounded-lg border border-slate-800 bg-[#0B0F17]/90 hover:border-cyan-500/50 transition-colors">
+              <div className="flex justify-between items-start">
+                <span className="text-sm font-bold text-white">Phishing URL Detection Tool</span>
+                <span className="text-[11px] text-cyan-400">Python / Regex</span>
               </div>
+              <p className="text-xs text-slate-300 mt-2 font-sans leading-relaxed">
+                Heuristic entropy script with redirection auditing to identify typosquatting vectors and suspicious domains.
+              </p>
+            </div>
 
-              {/* Project 2 */}
-              <div className="rounded-lg border border-slate-800 bg-slate-950/80 p-4">
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-sm font-bold text-white">Secure Folder Encryptor</span>
-                  <span className="text-[11px] text-cyan-400">Java / AES-256</span>
-                </div>
-                <p className="text-xs text-slate-400 leading-relaxed">
-                  Cryptographic desktop utility leveraging AES-256-CBC, dynamic PBKDF2 salting, and SHA-256 integrity checks.
-                </p>
+            {/* Project 3: Secure Folder Encryptor */}
+            <div className="p-4 rounded-lg border border-slate-800 bg-[#0B0F17]/90 hover:border-cyan-500/50 transition-colors">
+              <div className="flex justify-between items-start">
+                <span className="text-sm font-bold text-white">Secure Folder Encryptor</span>
+                <span className="text-[11px] text-cyan-400">Java / AES-256</span>
               </div>
+              <p className="text-xs text-slate-300 mt-2 font-sans leading-relaxed">
+                Cryptographic desktop utility leveraging AES-256-CBC, dynamic PBKDF2 salting, and SHA-256 integrity verification.
+              </p>
             </div>
           </div>
         </div>
 
-        {/* Right Column (Cards 02, 04, 06) */}
-        <div className="lg:col-span-5 space-y-6">
+        {/* Right Column (Span 6) */}
+        <div className="lg:col-span-6 space-y-6">
+
           {/* [02_ACADEMICS] */}
-          <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-6 backdrop-blur-md">
-            <div className="text-xs text-cyan-400 font-bold mb-2 tracking-wider">
-              [02_ACADEMICS]
-            </div>
-            <h3 className="text-base font-bold text-white mb-1">
-              B.Sc. in Computer Science
-            </h3>
-            <div className="text-xs text-slate-400">
-              Keshav Memorial Institute of Commerce &amp; Sciences
-            </div>
-            <div className="text-xs text-slate-500 mb-6">
-              Osmania University — Hyderabad
-            </div>
-
-            <div className="flex items-center justify-between text-xs pt-4 border-t border-slate-800/80">
-              <span className="text-slate-400">2023 – Expected 2026</span>
-              <span className="text-emerald-400 font-semibold">Coursework Completed</span>
+          <div className="p-6 rounded-xl border border-slate-800 bg-[#070e17]/80 backdrop-blur shadow-sm">
+            <span className="text-cyan-400 text-xs font-bold tracking-wider block mb-2">[02_ACADEMICS]</span>
+            <div className="text-base font-bold text-white">B.Sc. in Computer Science</div>
+            <div className="text-xs text-slate-400 mt-0.5">Keshav Memorial Institute of Commerce &amp; Sciences</div>
+            <div className="text-xs text-slate-500">Osmania University &ndash; Hyderabad</div>
+            <div className="border-t border-slate-800/80 my-4" />
+            <div className="flex justify-between items-center text-xs text-slate-400">
+              <span>Coursework Completed</span>
+              <span className="text-emerald-400 font-semibold">Osmania Affiliated</span>
             </div>
           </div>
 
-          {/* [04_SECURITY_TOOLSET] */}
-          <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-6 backdrop-blur-md space-y-4">
-            <div className="text-xs text-cyan-400 font-bold tracking-wider">
-              [04_SECURITY_TOOLSET]
+          {/* [04_SECURITY_TOOLSET] (Skills) */}
+          <div id="skills" className="p-6 rounded-xl border border-slate-800 bg-[#070e17]/80 backdrop-blur space-y-4 shadow-sm">
+            <span className="text-cyan-400 text-xs font-bold tracking-wider block">[04_SECURITY_TOOLSET]</span>
+            
+            <div>
+              <div className="text-xs text-slate-400 uppercase tracking-wide mb-1 font-mono">Assessment &amp; Frameworks</div>
+              <div className="text-xs font-semibold text-white font-sans">Burp Suite, OpenVAS, Nmap, Wireshark, Kali Linux, Metasploit</div>
             </div>
 
             <div>
-              <div className="text-[11px] text-slate-400">Assessment &amp; Frameworks</div>
-              <div className="text-xs font-semibold text-slate-200 mt-0.5">
-                Burp Suite, OpenVAS, Nmap, Wireshark, Kali Linux
-              </div>
+              <div className="text-xs text-slate-400 uppercase tracking-wide mb-1 font-mono">Networking &amp; Protocols</div>
+              <div className="text-xs font-semibold text-white font-sans">TCP/IP, DNS, HTTP/HTTPS, OSI Model, Packet Analysis</div>
             </div>
 
             <div>
-              <div className="text-[11px] text-slate-400">Networking &amp; Protocols</div>
-              <div className="text-xs font-semibold text-slate-200 mt-0.5">
-                TCP/IP, DNS, HTTP/HTTPS, OSI Model, Packet Analysis
-              </div>
-            </div>
-
-            <div>
-              <div className="text-[11px] text-slate-400">Programming &amp; Scripting</div>
-              <div className="text-xs font-semibold text-slate-200 mt-0.5">
-                Python, Java, C++, Bash/Shell Scripting
-              </div>
+              <div className="text-xs text-slate-400 uppercase tracking-wide mb-1 font-mono">Programming &amp; Scripting</div>
+              <div className="text-xs font-semibold text-white font-sans">Python, Java, C++, Bash/Shell Scripting, React, TypeScript</div>
             </div>
           </div>
 
-          {/* [06_HANDS_ON_LABS] */}
-          <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-6 backdrop-blur-md space-y-4">
-            <div className="text-xs text-cyan-400 font-bold tracking-wider">
-              [06_HANDS_ON_LABS]
-            </div>
-
+          {/* [06_HANDS_ON_LABS & CERTIFICATIONS] */}
+          <div className="p-6 rounded-xl border border-slate-800 bg-[#070e17]/80 backdrop-blur space-y-4 shadow-sm">
+            <span className="text-cyan-400 text-xs font-bold tracking-wider block">[06_HANDS_ON_LABS &amp; CERTIFICATIONS]</span>
+            
             <div>
               <div className="text-xs font-bold text-white">PortSwigger &amp; DVWA Labs</div>
-              <div className="text-xs text-slate-400 mt-0.5 leading-relaxed">
-                SQLi, XSS, CSRF, and Broken Access Control bypass validation.
-              </div>
+              <div className="text-xs text-slate-400 font-sans mt-0.5">SQLi, XSS, CSRF, and Broken Access Control bypass validation.</div>
             </div>
 
             <div>
               <div className="text-xs font-bold text-white">Host Reconnaissance &amp; Traffic Analysis</div>
-              <div className="text-xs text-slate-400 mt-0.5 leading-relaxed">
-                Nmap NSE automated discovery and packet anomaly inspection in Wireshark.
-              </div>
+              <div className="text-xs text-slate-400 font-sans mt-0.5">Nmap NSE automated discovery and packet anomaly inspection in Wireshark.</div>
             </div>
 
-            <div className="pt-3 border-t border-slate-800/80">
-              <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-semibold">
-                <ShieldCheck className="h-4 w-4" />
-                <span>Cyber Security Internship Certificate</span>
+            <div className="border-t border-slate-800/80 pt-3 space-y-2.5">
+              <div className="text-xs text-emerald-400 font-semibold flex items-center gap-2">
+                <Check className="w-3.5 h-3.5 shrink-0" />
+                <span>IIFIS Certified Cyber Security Professional</span>
               </div>
-              <div className="text-[11px] text-slate-500 mt-0.5">
-                Digit Defence &bull; ID: DF202712438 (Issued Jul. 2026)
+              <div className="text-xs text-emerald-400 font-semibold flex items-center gap-2">
+                <Check className="w-3.5 h-3.5 shrink-0" />
+                <span>NASSCOM Certified Cyber Security Professional</span>
+              </div>
+              <div className="text-xs text-emerald-400 font-semibold flex items-center gap-2">
+                <Check className="w-3.5 h-3.5 shrink-0" />
+                <span>Cyber Security Internship Certificate &ndash; Digit Defence (ID: DF260727438)</span>
               </div>
             </div>
           </div>
+
         </div>
+
       </div>
     </section>
   );
 };
+
+export default ResumeCV;

@@ -6,6 +6,20 @@ export const Hero: React.FC = () => {
   const prefersReduced = useReducedMotion();
   const easeCurve = [0.16, 1, 0.3, 1] as const;
 
+  const handleScroll = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    e.preventDefault();
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      window.history.pushState(null, '', href);
+    }
+  };
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -21,7 +35,7 @@ export const Hero: React.FC = () => {
     hidden: { 
       opacity: 0, 
       y: prefersReduced ? 0 : 20,
-      filter: prefersReduced ? 'none' : 'blur(4px)'
+      filter: prefersReduced ? 'none' : 'blur(4px)',
     },
     visible: {
       opacity: 1,
@@ -141,7 +155,8 @@ export const Hero: React.FC = () => {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
             href="#projects"
-            className="px-6 py-3 rounded-md border border-cyan-800/70 bg-[#061320] text-cyan-400 font-semibold hover:border-cyan-500 hover:bg-cyan-950/40 transition-all shadow-[0_0_15px_rgba(6,182,212,0.12)]"
+            onClick={(e) => handleScroll(e, '#projects')}
+            className="px-6 py-3 rounded-md border border-cyan-800/70 bg-[#061320] text-cyan-400 font-semibold hover:border-cyan-500 hover:bg-cyan-950/40 transition-all shadow-[0_0_15px_rgba(6,182,212,0.12)] cursor-pointer"
           >
             &gt; View Projects
           </motion.a>
@@ -151,7 +166,8 @@ export const Hero: React.FC = () => {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
             href="#contact"
-            className="px-6 py-3 rounded-md border border-cyan-800/70 bg-[#061320] text-cyan-400 font-semibold hover:border-cyan-500 hover:bg-cyan-950/40 transition-all shadow-[0_0_15px_rgba(6,182,212,0.12)]"
+            onClick={(e) => handleScroll(e, '#contact')}
+            className="px-6 py-3 rounded-md border border-cyan-800/70 bg-[#061320] text-cyan-400 font-semibold hover:border-cyan-500 hover:bg-cyan-950/40 transition-all shadow-[0_0_15px_rgba(6,182,212,0.12)] cursor-pointer"
           >
             &gt; Contact Me
           </motion.a>
@@ -164,7 +180,7 @@ export const Hero: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
             download="Poondru_Atharv_Reddy_Resume.pdf"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md bg-cyan-400 text-slate-950 font-bold uppercase tracking-wider hover:bg-cyan-300 transition-all shadow-[0_0_22px_rgba(6,182,212,0.55)]"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md bg-cyan-400 text-slate-950 font-bold uppercase tracking-wider hover:bg-cyan-300 transition-all shadow-[0_0_22px_rgba(6,182,212,0.55)] cursor-pointer"
           >
             <Download className="w-4 h-4 stroke-[2.5]" />
             <span>DOWNLOAD PDF</span>

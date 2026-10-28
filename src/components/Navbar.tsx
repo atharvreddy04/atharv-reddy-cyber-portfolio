@@ -1,91 +1,122 @@
 import React, { useState } from 'react';
-import { Shield, Download, Menu, X } from 'lucide-react';
+import { Download, Menu, X, Shield } from 'lucide-react';
+
+const NAV_ITEMS = [
+  { label: 'HOME', href: '#home' },
+  { label: 'ABOUT', href: '#about' },
+  { label: 'SKILLS', href: '#skills' },
+  { label: 'PROJECTS', href: '#projects' },
+  { label: 'EXPERIENCE', href: '#experience' },
+  { label: 'CONTACT', href: '#contact' },
+];
 
 export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Exact 6 links: HOME, ABOUT, SKILLS, PROJECTS, EXPERIENCE, CONTACT
-  const navLinks = [
-    { name: 'HOME', href: '#hero' },
-    { name: 'ABOUT', href: '#about' },
-    { name: 'SKILLS', href: '#resume' },
-    { name: 'PROJECTS', href: '#contributions' },
-    { name: 'EXPERIENCE', href: '#experience' },
-    { name: 'CONTACT', href: '#contact' },
-  ];
+  const handleScroll = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      // Update URL hash without standard jump
+      window.history.pushState(null, '', href);
+    }
+  };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0B0F17]/85 backdrop-blur-md border-b border-slate-900 font-mono">
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Left Branding */}
-        <div className="flex items-center gap-3">
-          <a href="#hero" className="flex items-center gap-2 text-emerald-400 font-bold tracking-wider">
-            <Shield className="h-5 w-5 text-emerald-400" />
-            <span className="text-white text-sm sm:text-base">[AR//SEC_OPS]</span>
-          </a>
-          <div className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span>SYSTEM: NOMINAL</span>
+    <header className="sticky top-0 z-50 backdrop-blur-md bg-[#0B0F17]/90 border-b border-slate-800/80 px-4 sm:px-8 py-3.5 select-none transition-all">
+      <div className="max-w-7xl mx-auto flex items-center justify-between">
+        
+        {/* Brand / SecOps Status */}
+        <a
+          href="#home"
+          onClick={(e) => handleScroll(e, '#home')}
+          className="flex items-center gap-2.5 font-mono group"
+        >
+          <div className="flex items-center gap-1.5 text-cyan-400 font-bold text-sm tracking-wider group-hover:text-cyan-300 transition-colors">
+            <Shield className="w-4 h-4 text-cyan-400" />
+            <span>[AR//SEC_OPS]</span>
           </div>
-        </div>
+          <span className="hidden sm:inline-flex items-center gap-1.5 text-[10px] text-emerald-400 font-semibold bg-emerald-950/40 border border-emerald-500/30 px-2 py-0.5 rounded-full">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            SYSTEM: NOMINAL
+          </span>
+        </a>
 
-        {/* Desktop Navigation Links */}
-        <div className="hidden md:flex items-center gap-5 lg:gap-7 text-xs text-slate-300 font-bold tracking-wider">
-          {navLinks.map((link) => (
+        {/* Desktop Nav Links */}
+        <nav className="hidden md:flex items-center gap-7 font-mono text-xs font-semibold tracking-wider text-slate-300">
+          {NAV_ITEMS.map((item) => (
             <a
-              key={link.name}
-              href={link.href}
-              className="hover:text-cyan-400 transition-colors"
+              key={item.label}
+              href={item.href}
+              onClick={(e) => handleScroll(e, item.href)}
+              className="hover:text-cyan-400 hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.5)] transition-all cursor-pointer"
             >
-              {link.name}
+              {item.label}
             </a>
           ))}
-        </div>
+        </nav>
 
-        {/* Right CTA */}
-        <div className="hidden md:flex items-center">
+        {/* Right Action: Download Resume & Mobile Hamburger */}
+        <div className="flex items-center gap-3">
           <a
             href="/resume.pdf"
-            download="Poondru_Atharv_Reddy_Resume.pdf"
-            className="px-4 py-1.5 rounded-lg border border-emerald-500/50 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20 hover:border-emerald-400 text-xs font-semibold flex items-center gap-1.5 transition-all"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-cyan-500/40 bg-cyan-950/30 text-cyan-400 text-xs font-mono font-semibold hover:bg-cyan-500/20 hover:border-cyan-400 transition-all shadow-[0_0_12px_rgba(6,182,212,0.15)] cursor-pointer"
           >
-            <Download className="h-3.5 w-3.5" />
+            <Download className="w-3.5 h-3.5 stroke-[2.2]" />
+            <span>Download Resume</span>
+          </a>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-1.5 rounded-lg border border-slate-700 bg-slate-900/60 text-slate-300 hover:text-cyan-400 transition-colors"
+            aria-label="Toggle Navigation Menu"
+          >
+            {mobileMenuOpen ? (
+              <X className="w-5 h-5" />
+            ) : (
+              <Menu className="w-5 h-5" />
+            )}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Dropdown Menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden mt-3 pt-3 border-t border-slate-800/80 font-mono text-xs space-y-2 pb-2">
+          {NAV_ITEMS.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              onClick={(e) => handleScroll(e, item.href)}
+              className="block px-3 py-2 rounded-md text-slate-300 hover:text-cyan-400 hover:bg-cyan-950/20 transition-all cursor-pointer"
+            >
+              &gt; {item.label}
+            </a>
+          ))}
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-3 py-2 text-cyan-400 hover:bg-cyan-950/20 rounded-md font-semibold"
+          >
+            <Download className="w-3.5 h-3.5" />
             <span>Download Resume</span>
           </a>
         </div>
-
-        {/* Mobile Hamburger Toggle */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 text-slate-400 hover:text-white"
-          aria-label="Toggle Menu"
-        >
-          {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
-      </div>
-
-      {/* Mobile Menu Dropdown */}
-      {mobileMenuOpen && (
-        <div className="md:hidden border-b border-slate-800 bg-[#0B0F17] px-6 py-4 space-y-3 text-xs font-bold tracking-wider">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-slate-300 hover:text-cyan-400 py-1"
-            >
-              {link.name}
-            </a>
-          ))}
-          <a
-            href="/resume.pdf"
-            download="Poondru_Atharv_Reddy_Resume.pdf"
-            className="block text-center mt-3 py-2 rounded-lg border border-emerald-500/40 bg-emerald-500/10 text-emerald-300 font-bold"
-          >
-            Download Resume
-          </a>
-        </div>
       )}
-    </nav>
+    </header>
   );
 };
+
+export default Navbar;
