@@ -24,8 +24,15 @@ export const Navbar: React.FC = () => {
     const element = document.getElementById(targetId);
 
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      // Update URL hash without standard jump
+      const navbarHeight = 80; // height of sticky navbar in pixels
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = elementPosition - navbarHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
+
       window.history.pushState(null, '', href);
     }
   };
