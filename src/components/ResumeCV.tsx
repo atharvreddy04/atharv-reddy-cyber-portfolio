@@ -48,7 +48,7 @@ Cybersecurity Intern - Digit Defence (Remote) | Jan 2026 – Jul 2026 [Doc ID: D
   };
 
   return (
-    <section id="about" className="scroll-mt-24 max-w-6xl mx-auto px-4 py-16 font-mono">
+    <section id="skills" className="scroll-mt-24 max-w-6xl mx-auto px-4 py-16 font-mono">
       {/* Top Credentials Action Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
@@ -58,7 +58,7 @@ Cybersecurity Intern - Digit Defence (Remote) | Jan 2026 – Jul 2026 [Doc ID: D
           </div>
           <h2 className="text-3xl font-extrabold text-white mt-1">Professional Resume</h2>
           <p className="text-xs text-slate-400 mt-1 font-sans">
-            Interactive 3D spatial cards with official PDF downloads.
+            Interactive spatial cards with official PDF downloads.
           </p>
         </div>
 
@@ -94,10 +94,8 @@ Cybersecurity Intern - Digit Defence (Remote) | Jan 2026 – Jul 2026 [Doc ID: D
 
       {/* Spatial Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        
         {/* Left Column */}
         <div className="lg:col-span-6 space-y-6">
-          
           {/* [01_EXECUTIVE_SUMMARY] */}
           <div className="p-6 rounded-xl border border-slate-800 bg-[#070e17]/80 backdrop-blur shadow-sm">
             <span className="text-cyan-400 text-xs font-bold tracking-wider block mb-3">
@@ -118,7 +116,7 @@ Cybersecurity Intern - Digit Defence (Remote) | Jan 2026 – Jul 2026 [Doc ID: D
             </div>
           </div>
 
-          {/* [03_FIELD_EXPERIENCE] (Summary card inside Resume) */}
+          {/* [03_FIELD_EXPERIENCE] */}
           <div className="p-6 rounded-xl border border-slate-800 bg-[#070e17]/80 backdrop-blur shadow-sm">
             <div className="flex justify-between items-center mb-3">
               <span className="text-cyan-400 text-xs font-bold tracking-wider">[03_FIELD_EXPERIENCE]</span>
@@ -138,10 +136,10 @@ Cybersecurity Intern - Digit Defence (Remote) | Jan 2026 – Jul 2026 [Doc ID: D
             </ul>
           </div>
 
-          {/* [05_KEY_PROJECTS] (Summary card inside Resume) */}
+          {/* [05_KEY_PROJECTS] */}
           <div className="p-6 rounded-xl border border-cyan-800/60 bg-[#070e17]/90 backdrop-blur space-y-4 shadow-sm">
             <span className="text-cyan-400 text-xs font-bold tracking-wider block">[05_KEY_PROJECTS]</span>
-            
+
             <div className="p-4 rounded-lg border border-slate-800 bg-[#0B0F17]/90 hover:border-cyan-500/50 transition-colors">
               <div className="flex justify-between items-start">
                 <span className="text-sm font-bold text-white">NetSecure Analyzer</span>
@@ -176,7 +174,6 @@ Cybersecurity Intern - Digit Defence (Remote) | Jan 2026 – Jul 2026 [Doc ID: D
 
         {/* Right Column */}
         <div className="lg:col-span-6 space-y-6">
-
           {/* [02_ACADEMICS] */}
           <div className="p-6 rounded-xl border border-slate-800 bg-[#070e17]/80 backdrop-blur shadow-sm">
             <span className="text-cyan-400 text-xs font-bold tracking-wider block mb-2">[02_ACADEMICS]</span>
@@ -190,10 +187,10 @@ Cybersecurity Intern - Digit Defence (Remote) | Jan 2026 – Jul 2026 [Doc ID: D
             </div>
           </div>
 
-          {/* [04_SECURITY_TOOLSET] (Summary card inside Resume) */}
+          {/* [04_SECURITY_TOOLSET] */}
           <div className="p-6 rounded-xl border border-slate-800 bg-[#070e17]/80 backdrop-blur space-y-4 shadow-sm">
             <span className="text-cyan-400 text-xs font-bold tracking-wider block">[04_SECURITY_TOOLSET]</span>
-            
+
             <div>
               <div className="text-xs text-slate-400 uppercase tracking-wide mb-1 font-mono">Assessment &amp; Frameworks</div>
               <div className="text-xs font-semibold text-white font-sans">Burp Suite, OpenVAS, Nmap, Wireshark, Kali Linux, Metasploit</div>
@@ -213,7 +210,7 @@ Cybersecurity Intern - Digit Defence (Remote) | Jan 2026 – Jul 2026 [Doc ID: D
           {/* [06_HANDS_ON_LABS & CERTIFICATIONS] */}
           <div className="p-6 rounded-xl border border-slate-800 bg-[#070e17]/80 backdrop-blur space-y-4 shadow-sm">
             <span className="text-cyan-400 text-xs font-bold tracking-wider block">[06_HANDS_ON_LABS &amp; CERTIFICATIONS]</span>
-            
+
             <div>
               <div className="text-xs font-bold text-white">PortSwigger &amp; DVWA Labs</div>
               <div className="text-xs text-slate-400 font-sans mt-0.5">SQLi, XSS, CSRF, and Broken Access Control bypass validation.</div>
@@ -239,9 +236,7 @@ Cybersecurity Intern - Digit Defence (Remote) | Jan 2026 – Jul 2026 [Doc ID: D
               </div>
             </div>
           </div>
-
         </div>
-
       </div>
     </section>
   );
