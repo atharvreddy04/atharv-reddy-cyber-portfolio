@@ -4,6 +4,7 @@ import { Hero } from './components/Hero';
 import { MetricsBar } from './components/MetricsBar';
 import { AboutJson } from './components/AboutJson';
 import { ResumeCV } from './components/ResumeCV';
+import { HighlightCard3D } from './components/HighlightCard3D';
 import { Experience } from './components/Experience';
 import { Certifications } from './components/Certifications';
 import { GithubMonitor } from './components/GithubMonitor';
@@ -15,37 +16,52 @@ function App() {
   return (
     <div className="min-h-screen bg-[#0B0F17] text-slate-100 selection:bg-cyan-500 selection:text-slate-950">
       <Navbar />
-      
+
       <main className="space-y-4">
+        {/* HOME SECTION */}
         <Hero />
 
+        {/* METRICS */}
         <SectionReveal variant="secondary">
           <MetricsBar />
         </SectionReveal>
 
+        {/* ABOUT SECTION */}
         <SectionReveal variant="primary">
           <AboutJson />
         </SectionReveal>
 
+        {/* RESUME / CREDENTIALS */}
         <SectionReveal variant="primary">
           <ResumeCV />
         </SectionReveal>
 
-        {/* Experience Target Section for #experience */}
+        {/* DEDICATED PROJECTS SECTION (HighlightCard3D) */}
+        <SectionReveal variant="primary">
+          <HighlightCard3D />
+        </SectionReveal>
+
+        {/* DEDICATED EXPERIENCE SECTION */}
         <SectionReveal variant="primary">
           <Experience />
         </SectionReveal>
 
-        <Certifications />
+        {/* DEDICATED SKILLS & CERTIFICATIONS SECTION */}
+        <SectionReveal variant="primary">
+          <Certifications />
+        </SectionReveal>
 
+        {/* GITHUB MONITOR */}
         <SectionReveal variant="secondary">
           <GithubMonitor />
         </SectionReveal>
 
+        {/* RECRUITMENT BANNER */}
         <SectionReveal variant="primary">
           <RecruitmentBanner />
         </SectionReveal>
 
+        {/* CONTACT SECTION */}
         <SectionReveal variant="primary">
           <Contact />
         </SectionReveal>
@@ -59,4 +75,3 @@ function App() {
 }
 
 export default App;
-

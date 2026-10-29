@@ -58,7 +58,7 @@ Cybersecurity Intern - Digit Defence (Remote) | Jan 2026 – Jul 2026 [Doc ID: D
           </div>
           <h2 className="text-3xl font-extrabold text-white mt-1">Professional Resume</h2>
           <p className="text-xs text-slate-400 mt-1 font-sans">
-            Interactive spatial cards with official PDF downloads.
+            Interactive 3D spatial cards with official PDF downloads.
           </p>
         </div>
 
@@ -118,8 +118,8 @@ Cybersecurity Intern - Digit Defence (Remote) | Jan 2026 – Jul 2026 [Doc ID: D
             </div>
           </div>
 
-          {/* [03_FIELD_EXPERIENCE] */}
-          <div id="experience" className="scroll-mt-28 p-6 rounded-xl border border-slate-800 bg-[#070e17]/80 backdrop-blur shadow-sm">
+          {/* [03_FIELD_EXPERIENCE] (Summary card inside Resume) */}
+          <div className="p-6 rounded-xl border border-slate-800 bg-[#070e17]/80 backdrop-blur shadow-sm">
             <div className="flex justify-between items-center mb-3">
               <span className="text-cyan-400 text-xs font-bold tracking-wider">[03_FIELD_EXPERIENCE]</span>
               <span className="text-xs text-slate-400">Jan 2026 – Jul 2026</span>
@@ -138,8 +138,8 @@ Cybersecurity Intern - Digit Defence (Remote) | Jan 2026 – Jul 2026 [Doc ID: D
             </ul>
           </div>
 
-          {/* [05_KEY_PROJECTS] */}
-          <div id="projects" className="scroll-mt-28 p-6 rounded-xl border border-cyan-800/60 bg-[#070e17]/90 backdrop-blur space-y-4 shadow-sm">
+          {/* [05_KEY_PROJECTS] (Summary card inside Resume) */}
+          <div className="p-6 rounded-xl border border-cyan-800/60 bg-[#070e17]/90 backdrop-blur space-y-4 shadow-sm">
             <span className="text-cyan-400 text-xs font-bold tracking-wider block">[05_KEY_PROJECTS]</span>
             
             <div className="p-4 rounded-lg border border-slate-800 bg-[#0B0F17]/90 hover:border-cyan-500/50 transition-colors">
@@ -190,8 +190,8 @@ Cybersecurity Intern - Digit Defence (Remote) | Jan 2026 – Jul 2026 [Doc ID: D
             </div>
           </div>
 
-          {/* [04_SECURITY_TOOLSET] */}
-          <div id="skills" className="scroll-mt-28 p-6 rounded-xl border border-slate-800 bg-[#070e17]/80 backdrop-blur space-y-4 shadow-sm">
+          {/* [04_SECURITY_TOOLSET] (Summary card inside Resume) */}
+          <div className="p-6 rounded-xl border border-slate-800 bg-[#070e17]/80 backdrop-blur space-y-4 shadow-sm">
             <span className="text-cyan-400 text-xs font-bold tracking-wider block">[04_SECURITY_TOOLSET]</span>
             
             <div>

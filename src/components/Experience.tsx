@@ -46,7 +46,7 @@ const experiences: ExperienceItem[] = [
 
 export const Experience: React.FC = () => {
   return (
-    <section id="experience" className="scroll-mt-20 px-6 py-12 max-w-7xl mx-auto font-mono">
+    <section id="experience" className="scroll-mt-24 px-6 py-12 max-w-7xl mx-auto font-mono">
       {/* Token Header */}
       <div className="flex items-center gap-2 text-xs text-emerald-400 mb-1">
         <Briefcase className="h-4 w-4" />
@@ -91,7 +91,7 @@ export const Experience: React.FC = () => {
               </div>
             </div>
 
-            <ul className="space-y-2 mt-4 text-xs text-slate-300">
+            <ul className="space-y-2 mt-4 text-xs text-slate-300 font-sans">
               {exp.responsibilities.map((resp, idx) => (
                 <li key={idx} className="flex items-start gap-2.5">
                   <CheckCircle2 className="h-3.5 w-3.5 text-cyan-400 shrink-0 mt-0.5" />
@@ -101,13 +101,13 @@ export const Experience: React.FC = () => {
             </ul>
 
             <div className="flex flex-wrap items-center gap-2 pt-4 mt-4 border-t border-slate-800/80 text-[11px]">
-              <span className="text-slate-500 font-semibold text-[10px] uppercase tracking-wider">
+              <span className="text-slate-500 font-semibold text-[10px] uppercase tracking-wider font-mono">
                 Tech &amp; Tools:
               </span>
               {exp.techStack.map((tech) => (
                 <span
                   key={tech}
-                  className="px-2.5 py-0.5 rounded bg-slate-950 text-slate-300 border border-slate-800"
+                  className="px-2.5 py-0.5 rounded bg-slate-950 text-slate-300 border border-slate-800 font-mono"
                 >
                   {tech}
                 </span>
@@ -119,3 +119,5 @@ export const Experience: React.FC = () => {
     </section>
   );
 };
+
+export default Experience;
