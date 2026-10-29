@@ -4,7 +4,6 @@ import { Hero } from './components/Hero';
 import { MetricsBar } from './components/MetricsBar';
 import { AboutJson } from './components/AboutJson';
 import { ResumeCV } from './components/ResumeCV';
-import { HighlightCard3D } from './components/HighlightCard3D';
 import { Experience } from './components/Experience';
 import { Certifications } from './components/Certifications';
 import { GithubMonitor } from './components/GithubMonitor';
@@ -31,14 +30,9 @@ function App() {
           <AboutJson />
         </SectionReveal>
 
-        {/* RESUME / CREDENTIALS */}
+        {/* RESUME / CREDENTIALS (Contains id="skills" at [04_SECURITY_TOOLSET]) */}
         <SectionReveal variant="primary">
           <ResumeCV />
-        </SectionReveal>
-
-        {/* DEDICATED PROJECTS SECTION (HighlightCard3D) */}
-        <SectionReveal variant="primary">
-          <HighlightCard3D />
         </SectionReveal>
 
         {/* DEDICATED EXPERIENCE SECTION */}
@@ -46,15 +40,17 @@ function App() {
           <Experience />
         </SectionReveal>
 
-        {/* DEDICATED SKILLS & CERTIFICATIONS SECTION */}
+        {/* DEDICATED CERTIFICATIONS SECTION */}
         <SectionReveal variant="primary">
           <Certifications />
         </SectionReveal>
 
-        {/* GITHUB MONITOR */}
-        <SectionReveal variant="secondary">
-          <GithubMonitor />
-        </SectionReveal>
+        {/* GITHUB CONTRIBUTIONS / PROJECTS TARGET (Leaves GithubMonitor.tsx untouched) */}
+        <div id="projects" className="scroll-mt-24">
+          <SectionReveal variant="secondary">
+            <GithubMonitor />
+          </SectionReveal>
+        </div>
 
         {/* RECRUITMENT BANNER */}
         <SectionReveal variant="primary">
