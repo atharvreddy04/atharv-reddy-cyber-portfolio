@@ -1,192 +1,241 @@
-import React from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
-import { Download, Check } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Terminal, Shield, CornerDownLeft, ArrowDown, ExternalLink } from 'lucide-react';
+
+interface CommandOutput {
+  id: string;
+  command: string;
+  response: React.ReactNode;
+}
 
 export const Hero: React.FC = () => {
-  const prefersReduced = useReducedMotion();
-  const easeCurve = [0.16, 1, 0.3, 1] as const;
+  const [input, setInput] = useState('');
+  const [history, setHistory] = useState<CommandOutput[]>([
+    {
+      id: '1',
+      command: 'whoami',
+      response: (
+        <span className="text-slate-300">
+          Poondru Atharv Reddy — Cybersecurity Specialist &amp; Penetration Tester.
+        </span>
+      ),
+    },
+    {
+      id: '2',
+      command: 'help',
+      response: (
+        <span className="text-slate-400">
+          Available: <span className="text-cyan-400 font-bold">skills</span>,{' '}
+          <span className="text-cyan-400 font-bold">projects</span>,{' '}
+          <span className="text-cyan-400 font-bold">exp</span>,{' '}
+          <span className="text-cyan-400 font-bold">certs</span>,{' '}
+          <span className="text-cyan-400 font-bold">netsecure</span>,{' '}
+          <span className="text-cyan-400 font-bold">clear</span>
+        </span>
+      ),
+    },
+  ]);
 
-  const handleScroll = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    href: string
-  ) => {
+  const [cmdHistory, setCmdHistory] = useState<string[]>(['whoami', 'help']);
+  const [historyIdx, setHistoryIdx] = useState<number>(-1);
+  const terminalEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    terminalEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [history]);
+
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleCommand = (e: React.FormEvent) => {
     e.preventDefault();
-    const targetId = href.replace('#', '');
-    const element = document.getElementById(targetId);
+    const clean = input.trim();
+    if (!clean) return;
 
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      window.history.pushState(null, '', href);
+    setCmdHistory((prev) => [...prev, clean]);
+    setHistoryIdx(-1);
+
+    const cmd = clean.toLowerCase();
+    let res: React.ReactNode = null;
+
+    switch (cmd) {
+      case 'help':
+        res = (
+          <div className="text-[11px] text-slate-300 space-y-1">
+            <div className="text-slate-400">Type any command below:</div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-1 pt-1 text-cyan-300">
+              <div><span className="text-emerald-400 font-bold">skills</span> &rarr; Resume/Toolset</div>
+              <div><span className="text-emerald-400 font-bold">projects</span> &rarr; Repositories</div>
+              <div><span className="text-emerald-400 font-bold">exp</span> &rarr; Internships</div>
+              <div><span className="text-emerald-400 font-bold">certs</span> &rarr; Credentials</div>
+              <div><span className="text-emerald-400 font-bold">netsecure</span> &rarr; Live Packet App</div>
+              <div><span className="text-emerald-400 font-bold">clear</span> &rarr; Reset screen</div>
+            </div>
+          </div>
+        );
+        break;
+
+      case 'skills':
+        scrollTo('skills');
+        res = <span className="text-cyan-400">&gt; Scrolling to #skills (Professional Resume &amp; Toolset)...</span>;
+        break;
+
+      case 'projects':
+        scrollTo('projects');
+        res = <span className="text-cyan-400">&gt; Scrolling to #projects (GitHub Contributions)...</span>;
+        break;
+
+      case 'exp':
+      case 'experience':
+        scrollTo('experience');
+        res = <span className="text-cyan-400">&gt; Scrolling to #experience (Digit Defence &amp; VAPT)...</span>;
+        break;
+
+      case 'certs':
+      case 'certifications':
+        scrollTo('certifications');
+        res = <span className="text-cyan-400">&gt; Scrolling to #certifications (NASSCOM &amp; IIFIS)...</span>;
+        break;
+
+      case 'netsecure':
+        window.open('https://atharvreddy-network-traffic-analyzer.vercel.app', '_blank');
+        res = <span className="text-emerald-400">&gt; Launching NetSecure live app in a new tab...</span>;
+        break;
+
+      case 'whoami':
+        res = <span className="text-slate-300">Poondru Atharv Reddy | B.Sc Computer Science | VAPT &amp; SOC Operations</span>;
+        break;
+
+      case 'clear':
+        setHistory([]);
+        setInput('');
+        return;
+
+      case 'sudo':
+      case 'sudo su':
+        res = <span className="text-rose-400 font-bold">[ACCESS DENIED]: Security alert dispatched to terminal daemon.</span>;
+        break;
+
+      default:
+        res = (
+          <span className="text-rose-400">
+            command not found: {clean}. Type <span className="underline font-bold text-white">help</span>.
+          </span>
+        );
+    }
+
+    setHistory((prev) => [...prev, { id: `${Date.now()}-${clean}`, command: clean, response: res }]);
+    setInput('');
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (!cmdHistory.length) return;
+      const next = historyIdx === -1 ? cmdHistory.length - 1 : Math.max(0, historyIdx - 1);
+      setHistoryIdx(next);
+      setInput(cmdHistory[next]);
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (historyIdx === -1) return;
+      const next = historyIdx + 1;
+      if (next >= cmdHistory.length) {
+        setHistoryIdx(-1);
+        setInput('');
+      } else {
+        setHistoryIdx(next);
+        setInput(cmdHistory[next]);
+      }
     }
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.08,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { 
-      opacity: 0, 
-      y: prefersReduced ? 0 : 20,
-      filter: prefersReduced ? 'none' : 'blur(4px)',
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      filter: 'blur(0px)',
-      transition: {
-        duration: 0.6,
-        ease: easeCurve,
-      },
-    },
-  };
-
-  const cardListVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.06,
-        delayChildren: 0.05,
-      },
-    },
-  };
-
-  const cardItemVariants = {
-    hidden: { opacity: 0, y: prefersReduced ? 0 : 14 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.45, ease: easeCurve },
-    },
-  };
-
-  const cards = [
-    { title: 'PortSwigger & DVWA', subtitle: 'Practical Web Security Labs' },
-    { title: 'Digit Defence', subtitle: 'Cybersecurity Intern' },
-    { title: 'Net Secure & Tools', subtitle: 'Traffic DPI & Security PoCs' },
-    { title: 'Burp & Wireshark', subtitle: 'VAPT, Nmap & OpenVAS' },
-  ];
-
   return (
-    <section 
-      id="home" 
-      className="relative min-h-[90vh] flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 lg:px-8 font-mono text-center overflow-hidden bg-[#040911]"
-    >
-      {/* Cyan Ambient Radial Glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[340px] bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none" />
+    <section id="home" className="relative pt-24 pb-16 px-6 max-w-5xl mx-auto font-mono text-center">
+      {/* Status Badge */}
+      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-xs mb-6">
+        <Shield className="w-3.5 h-3.5 animate-pulse" />
+        <span>Vulnerability Assessment &amp; Threat Defense</span>
+      </div>
 
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="relative max-w-6xl mx-auto w-full flex flex-col items-center z-10"
+      <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase">
+        POONDRU ATHARV REDDY
+      </h1>
+
+      <p className="text-sm text-cyan-400 mt-2 font-semibold">
+        Cybersecurity Specialist &bull; VAPT &bull; OWASP Top 10 &bull; Network Security
+      </p>
+
+      {/* Interactive Command Terminal */}
+      <div
+        onClick={() => inputRef.current?.focus()}
+        className="mt-8 text-left rounded-xl border border-cyan-500/30 bg-slate-950/85 backdrop-blur-md p-4 shadow-[0_0_30px_rgba(6,182,212,0.12)] cursor-text max-w-2xl mx-auto"
       >
-        {/* Terminal Whoami Prompt */}
-        <motion.div
-          variants={itemVariants}
-          className="inline-flex items-center gap-2 px-3.5 py-1 rounded-md border border-cyan-800/60 bg-[#06121e]/80 text-cyan-400 text-xs sm:text-sm tracking-wider mb-6 shadow-[0_0_15px_rgba(6,182,212,0.15)]"
-        >
-          <span className="text-cyan-400">&gt;_</span>
-          <span>~/atharv $ whoami</span>
-        </motion.div>
+        <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-slate-800 text-xs text-slate-500">
+          <div className="flex items-center gap-2 text-slate-300">
+            <Terminal className="w-3.5 h-3.5 text-cyan-400" />
+            <span>atharv-reddy-cyber-portfolio: ~</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-red-500/70" />
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-500/70" />
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/70" />
+          </div>
+        </div>
 
-        {/* Large Neon Name Header */}
-        <motion.h1
-          variants={itemVariants}
-          className="text-4xl sm:text-6xl md:text-7xl font-extrabold uppercase tracking-wider text-cyan-400 mb-6 drop-shadow-[0_0_28px_rgba(6,182,212,0.6)]"
-        >
-          POONDRU ATHARV REDDY
-        </motion.h1>
-
-        {/* Domain Strip */}
-        <motion.div
-          variants={itemVariants}
-          className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs sm:text-sm text-slate-400 mb-10 tracking-wide"
-        >
-          <span>Vulnerability Assessment (VAPT)</span>
-          <span className="text-cyan-400 font-bold">&bull;</span>
-          <span>SOC Operations (L1/L2)</span>
-          <span className="text-cyan-400 font-bold">&bull;</span>
-          <span>OWASP Top 10</span>
-          <span className="text-cyan-400 font-bold">&bull;</span>
-          <span>Network Packet Analysis</span>
-        </motion.div>
-
-        {/* 4 Feature Cards */}
-        <motion.div
-          variants={cardListVariants}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 w-full max-w-5xl mb-10"
-        >
-          {cards.map((card, i) => (
-            <motion.div
-              key={i}
-              variants={cardItemVariants}
-              whileHover={{ y: -3, transition: { duration: 0.2 } }}
-              className="flex items-center gap-3 p-3.5 rounded-lg border border-cyan-800/40 bg-[#06121e]/75 shadow-[0_0_15px_rgba(6,182,212,0.08)] text-left hover:border-cyan-500/50 hover:bg-[#081726] transition-all"
-            >
-              <Check className="w-4 h-4 text-cyan-400 shrink-0 stroke-[2.5]" />
-              <div className="flex flex-col">
-                <span className="text-xs sm:text-sm font-bold text-slate-100 tracking-tight">
-                  {card.title}
-                </span>
-                <span className="text-[11px] text-slate-400">
-                  {card.subtitle}
-                </span>
+        {/* History Log */}
+        <div className="max-h-48 overflow-y-auto space-y-2 pr-1 text-xs">
+          {history.map((h) => (
+            <div key={h.id} className="space-y-1">
+              <div className="flex items-center gap-1.5">
+                <span className="text-emerald-400 font-bold shrink-0">atharv-reddy-cyber-portfolio:~$</span>
+                <span className="text-white">{h.command}</span>
               </div>
-            </motion.div>
+              <div className="pl-4 text-xs">{h.response}</div>
+            </div>
           ))}
-        </motion.div>
+          <div ref={terminalEndRef} />
+        </div>
 
-        {/* 3 Action Buttons */}
-        <motion.div
-          variants={itemVariants}
-          className="flex flex-wrap items-center justify-center gap-4 text-xs sm:text-sm"
+        {/* Active Command Input Line */}
+        <form onSubmit={handleCommand} className="flex items-center gap-1.5 mt-2.5 pt-2 border-t border-slate-800 text-xs">
+          <span className="text-emerald-400 font-bold shrink-0">atharv-reddy-cyber-portfolio:~$</span>
+          <input
+            ref={inputRef}
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="type 'help' or 'projects'..."
+            className="w-full bg-transparent text-cyan-300 outline-none border-none p-0 focus:ring-0 font-mono caret-cyan-400 placeholder:text-slate-600"
+            spellCheck={false}
+            autoComplete="off"
+          />
+          <button type="submit" className="text-slate-500 hover:text-cyan-400 transition-colors">
+            <CornerDownLeft className="w-3.5 h-3.5" />
+          </button>
+        </form>
+      </div>
+
+      {/* Quick Jump Buttons */}
+      <div className="flex flex-wrap items-center justify-center gap-3 mt-8 text-xs">
+        <button
+          onClick={() => scrollTo('skills')}
+          className="px-4 py-2 rounded-lg bg-cyan-500 text-slate-950 font-bold hover:bg-cyan-400 transition-colors flex items-center gap-1.5 cursor-pointer shadow-[0_0_15px_rgba(6,182,212,0.25)]"
         >
-          {/* Button 1: View Projects */}
-          <motion.a
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.98 }}
-            href="#projects"
-            onClick={(e) => handleScroll(e, '#projects')}
-            className="px-6 py-3 rounded-md border border-cyan-800/70 bg-[#061320] text-cyan-400 font-semibold hover:border-cyan-500 hover:bg-cyan-950/40 transition-all shadow-[0_0_15px_rgba(6,182,212,0.12)] cursor-pointer"
-          >
-            &gt; View Projects
-          </motion.a>
+          <span>View Resume / Skills</span>
+          <ArrowDown className="w-3.5 h-3.5" />
+        </button>
 
-          {/* Button 2: Contact Me */}
-          <motion.a
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.98 }}
-            href="#contact"
-            onClick={(e) => handleScroll(e, '#contact')}
-            className="px-6 py-3 rounded-md border border-cyan-800/70 bg-[#061320] text-cyan-400 font-semibold hover:border-cyan-500 hover:bg-cyan-950/40 transition-all shadow-[0_0_15px_rgba(6,182,212,0.12)] cursor-pointer"
-          >
-            &gt; Contact Me
-          </motion.a>
-
-          {/* Button 3: Solid Cyan Download PDF Button */}
-          <motion.a
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.98 }}
-            href="/resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            download="Poondru_Atharv_Reddy_Resume.pdf"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md bg-cyan-400 text-slate-950 font-bold uppercase tracking-wider hover:bg-cyan-300 transition-all shadow-[0_0_22px_rgba(6,182,212,0.55)] cursor-pointer"
-          >
-            <Download className="w-4 h-4 stroke-[2.5]" />
-            <span>DOWNLOAD PDF</span>
-          </motion.a>
-        </motion.div>
-      </motion.div>
+        <button
+          onClick={() => scrollTo('projects')}
+          className="px-4 py-2 rounded-lg border border-slate-700 bg-slate-900/60 text-slate-300 hover:border-cyan-500/50 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
+        >
+          <span>Explore Projects</span>
+          <ExternalLink className="w-3.5 h-3.5" />
+        </button>
+      </div>
     </section>
   );
 };
